@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Professional Video Player</title>
+    <title>Professional Video Player - Hardened Ads</title>
     
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet" />
@@ -14,9 +14,38 @@
         .input-group { margin-bottom: 15px; display: flex; gap: 10px; }
         input[type="text"] { flex-grow: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
         button#load-url { padding: 10px 20px; cursor: pointer; background: #1a73e8; color: white; border: none; border-radius: 6px; font-weight: 600; }
-        .vjs-ad-banner { display: none; position: absolute; top: 0; left: 0; width: 100%; background: rgba(255, 204, 0, 0.95); color: #000; padding: 12px; text-align: center; font-weight: bold; z-index: 10; font-size: 1.1em; }
+        
+        .vjs-ad-banner { display: none; position: absolute; top: 0; left: 0; width: 100%; background: rgba(255, 204, 0, 0.95); color: #000; padding: 12px; text-align: center; font-weight: bold; z-index: 10; }
         .vjs-skip-button { display: none; position: absolute; bottom: 80px; right: 20px; background: rgba(0, 0, 0, 0.85); color: white; border: 1px solid #fff; padding: 12px 24px; cursor: pointer; z-index: 11; border-radius: 4px; }
         .video-js { width: 100%; height: 500px; border-radius: 12px; overflow: hidden; background-color: #000; }
+
+        .vjs-floating-ad {
+            display: none; 
+            position: absolute;
+            width: 220px;
+            background: #000;
+            border: 1px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 20; 
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        @media screen and (max-width: 600px) { .vjs-floating-ad { width: 140px; } }
+
+        /* Animations */
+        .anim-in-left { animation: slideInL 0.5s ease-out forwards; }
+        .anim-in-right { animation: slideInR 0.5s ease-out forwards; }
+        .anim-out-left { animation: slideOutL 0.5s ease-in forwards; }
+        .anim-out-right { animation: slideOutR 0.5s ease-in forwards; }
+
+        @keyframes slideInL { from { transform: translateX(-130%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideInR { from { transform: translateX(130%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutL { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-130%); opacity: 0; } }
+        @keyframes slideOutR { from { transform: translateX(0); opacity: 1; } to { transform: translateX(130%); opacity: 0; } }
+
+        .vjs-floating-ad video { width: 100%; display: block; pointer-events: none; }
+        .vjs-floating-close { position: absolute; top: 0; right: 0; background: rgba(0,0,0,0.7); color: white; border: none; padding: 5px 10px; cursor: pointer; z-index: 21; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -24,13 +53,10 @@
 <div class="container">
     <div class="controls">
         <div class="input-group">
-            <input type="text" id="online-url" placeholder="Paste Google Drive, Dropbox, or MP4 link here...">
+            <input type="text" id="online-url" placeholder="Paste Video Link here...">
             <button id="load-url">Play Video</button>
         </div>
-        <div style="margin-top: 10px;">
-            <label style="font-size: 0.9em; color: #666;">Or upload local file:</label><br>
-            <input type="file" id="video-upload" accept="video/*">
-        </div>
+        <input type="file" id="video-upload" accept="video/*">
     </div>
     <video id="my-video" class="video-js vjs-theme-fantasy" controls preload="auto"></video>
 </div>
@@ -39,166 +65,161 @@
 
 <script>
     // ==========================================
-    // 1. ADS CONFIGURATION SECTION
+    // 🟢 AD SETTINGS (Easy to Add/Remove)
     // ==========================================
     
-    function getAdUrl(url) {
-        if (url.includes('dropbox.com')) {
-            return url.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', '');
-        }
-        if (url.includes('drive.google.com')) {
-            const match = url.match(/[-\w]{25,}/);
-            return match ? `https://drive.google.com/uc?export=download&id=${match[0]}` : url;
-        }
-        return url;
-    }
+    const RAW_FIXED_FIRST_AD = 'https://www.dropbox.com/scl/fi/dj13x9nvg1lgrsv8prs4o/WARNING.mp4?rlkey=jjmd0jo8qx5r4lokzxteykkb0&st=mkeq612j&dl=0';
 
-    const FIXED_FIRST_AD = getAdUrl('https://www.dropbox.com/scl/fi/dj13x9nvg1lgrsv8prs4o/WARNING.mp4?rlkey=jjmd0jo8qx5r4lokzxteykkb0&st=mkeq612j&dl=0');
-
-    // These will now play in order: 0, then 1, then 2...
     const SEQUENTIAL_ADS_LIBRARY = [
-
-getAdUrl('https://prog-public-ht.project1content.com/b6f/82b/3d6/cfb/433/ba3/83d/ab1/04c/c50/88/video/trailer_1080p.mp4'),       
-getAdUrl('https://vs41.userscontent.net/uls2/,568/1359/efa9c0aabc9f8500d364e62611b9hd4b.mp4,.urlset/master.m3u8?seclink=BlviLIHDguSXgAIouoLUKw&sectime=1772682161'),
-getAdUrl('https://prog-public-ht.project1content.com/25d/9f0/fd0/dd1/457/c85/92f/fce/119/05a/48/video/trailer_1080p.mp4'),
-getAdUrl('https://vs30.userscontent.net/uls2/,567/6952/9d13c1cfcf7a13e93be23d839d53hd4b.mp4,.urlset/master.m3u8?seclink=g4mFLksF8Xips8RmZtjDVA&sectime=1772682671'),
-getAdUrl('https://prog-public-ht.project1content.com/eae/69d/075/615/425/eae/9e4/ac3/a2d/f97/f2/video/trailer_1080p.mp4'),
-
-getAdUrl('https://www.dropbox.com/scl/fi/s64veloh727ufxh0b22p6/ad_1.mp4?rlkey=jdc9j6mjkpwhrsulslmd507zl&e=1&st=aikz2fzo&dl=0'),
-
-getAdUrl('https://video-nss.xhcdn.com/9jigKvL0qP70gS1zaLz-Pg==,1772582400/media=hls4/multi=256x144:144p:,426x240:240p:,854x480:480p:,1280x720:720p:/027/305/232/_TPL_.av1.mp4.m3u8'),
-
-getAdUrl('https://mp4-cdn77.xnxx-cdn.com/739e79d9-5ee0-4ac8-86b7-8e9a73101275/0/video_360p.mp4?secure=3wyyaQcJsiSFwCXpETH_SA==,1772576873'),
-
-getAdUrl('https://mp4-cdn77.xvideos-cdn.com/c2762a40-a705-4b1e-8cc3-9b6d416d3e7e/0/video_360p.mp4?secure=P3VDCdtnhfwXLny597pZdg==,1772580022'),
-
-getAdUrl('https://mp4-cdn77.xnxx-cdn.com/e5083146-17b6-49fc-b676-0e5496b57013/0/video_360p.mp4?secure=EulR04NGHPtPfcdTFHVr7A==,1772578321'),
-
-getAdUrl('https://mp4-cdn77.xnxx-cdn.com/4a05650d-7919-4a0c-9521-460ea864f448/0/video_360p.mp4?secure=xH4Wm6UXmw_-6L9V6YFB5g==,1772579527'),
-
-
-
-
-
-
-
-
+        'https://htl-cdn.adtng.com/a7/creatives/221/1559/823732/1163176/1163176_video_with_sound.mp4',
+        'https://htl-cdn.adtng.com/a7/creatives/221/1559/821340/1176510/1176510_video_with_sound.mp4',
+        'https://prog-public-ht.project1content.com/b6f/82b/3d6/cfb/433/ba3/83d/ab1/04c/c50/88/video/trailer_1080p.mp4'
     ];
 
-    const AD_BREAK_TIMESTAMPS = [15, 30, 45, 60, 75, 95, 105]; 
-    const SKIP_TIMER_SECONDS = 10; 
+    // IMPORTANT: Ensure every URL has a comma after it except the last one!
+    const FLOATING_ADS_LIBRARY = [
+        'https://ht-cdn.trafficjunky.net/c6321/video/003/022/121/3022121_video.mp4',
+        'https://ht-cdn.trafficjunky.net/c6321/video/003/070/961/3070961_video.mp4',
+        'https://prog-public-ht.project1content.com/f6e/d10/fa3/15c/4c7/ea8/9a3/ad1/1e8/584/6e/mediabook/mediabook_720p.mp4'
+    ];
+
+    const AD_BREAK_TIMESTAMPS = [15, 45, 75, 105]; 
+    const FLOATING_AD_TIMESTAMPS = [7, 23, 55, 68]; 
+    const SKIP_TIMER_SECONDS = 10;
+
+    // ==========================================
+    // ⚙️ CORE LOGIC (Safe & Resilient)
     // ==========================================
 
     const player = videojs('my-video');
-    const adBanner = document.createElement('div');
-    adBanner.className = 'vjs-ad-banner';
-    player.el().appendChild(adBanner);
+    const adBanner = document.createElement('div'); adBanner.className = 'vjs-ad-banner'; player.el().appendChild(adBanner);
+    const skipButton = document.createElement('button'); skipButton.className = 'vjs-skip-button'; skipButton.innerHTML = 'Skip Ad &raquo;'; player.el().appendChild(skipButton);
 
-    const skipButton = document.createElement('button');
-    skipButton.className = 'vjs-skip-button';
-    skipButton.innerHTML = 'Skip Ad &raquo;';
-    player.el().appendChild(skipButton);
-
-    let mainMovieSrc = ''; 
-    let pendingAds = []; 
-    let isPlayingAd = false;
-    let isFirstAd = false; 
-    let resumeTime = 0;
+    const floatingAdContainer = document.createElement('div');
+    floatingAdContainer.className = 'vjs-floating-ad';
+    const floatingVideoElement = document.createElement('video');
+    floatingVideoElement.autoplay = true; floatingVideoElement.muted = true; floatingVideoElement.playsInline = true;
+    const closeFloatingBtn = document.createElement('button'); closeFloatingBtn.className = 'vjs-floating-close'; closeFloatingBtn.innerHTML = '×';
     
-    // Track which ad is next in the list
-    let currentAdIndex = 0;
+    closeFloatingBtn.onclick = closeFloatingAdSmoothly;
+    floatingAdContainer.appendChild(closeFloatingBtn); floatingAdContainer.appendChild(floatingVideoElement);
+    player.el().appendChild(floatingAdContainer); 
 
-    function getDirectUrl(url) {
-        if (url.includes('drive.google.com')) {
-            const match = url.match(/[-\w]{25,}/);
-            return match ? `https://drive.google.com/uc?export=download&id=${match[0]}` : url;
-        }
-        if (url.includes('dropbox.com')) {
-            return url.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', '');
-        }
-        return url;
+    let mainMovieSrc = '', pendingAds = [], pendingFloatingAds = [], isPlayingAd = false;
+    let resumeTime = 0, currentAdIndex = 0, currentFloatingAdIndex = 0, floatingAdPlayCount = 0;
+    let currentPosAnim = 'right';
+
+    function formatUrl(url) {
+        if (!url || typeof url !== 'string') return '';
+        let clean = url.trim();
+        if (clean.includes('dropbox.com')) return clean.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', '').replace('?dl=1', '');
+        return clean;
     }
 
     function setupNewMovie(source) {
         if (!source) return;
-        mainMovieSrc = source;
-        pendingAds = [...AD_BREAK_TIMESTAMPS].sort((a, b) => a - b); 
-        resumeTime = 0; 
-        currentAdIndex = 0; // Reset ad sequence for new movie
-        startAd(true); 
+        mainMovieSrc = formatUrl(source);
+        pendingAds = [...AD_BREAK_TIMESTAMPS].sort((a, b) => a - b);
+        pendingFloatingAds = [...FLOATING_AD_TIMESTAMPS].sort((a, b) => a - b);
+        currentAdIndex = 0;
+        currentFloatingAdIndex = 0;
+        startAd(true);
     }
 
-   function startAd(isPreRoll = false) {
+    function startAd(isPreRoll = false) {
         isPlayingAd = true;
-        isFirstAd = isPreRoll;
+        floatingAdContainer.style.display = 'none';
+        floatingVideoElement.pause();
         
-        if (!isFirstAd) {
-            resumeTime = player.currentTime();
-        }
-
-        adBanner.style.display = isFirstAd ? 'none' : 'block';
+        if (!isPreRoll) resumeTime = player.currentTime();
+        
+        adBanner.style.display = isPreRoll ? 'none' : 'block';
         skipButton.style.display = 'none';
-        player.controls(isFirstAd);
+        player.controls(isPreRoll);
 
-        let adToPlay;
-        if (isFirstAd) {
-            adToPlay = FIXED_FIRST_AD;
-        } else {
-            // Pick ad in order
-            adToPlay = SEQUENTIAL_ADS_LIBRARY[currentAdIndex];
-            
-            // Move to next index for the next break, or loop to start
+        let rawUrl = isPreRoll ? RAW_FIXED_FIRST_AD : SEQUENTIAL_ADS_LIBRARY[currentAdIndex];
+        if (!isPreRoll && SEQUENTIAL_ADS_LIBRARY.length > 0) {
             currentAdIndex = (currentAdIndex + 1) % SEQUENTIAL_ADS_LIBRARY.length;
         }
+
+        player.src({ type: 'video/mp4', src: formatUrl(rawUrl) });
+        player.play().catch(() => { console.error("Main Ad failed, skipping..."); returnToMovie(); });
+    }
+
+    function showFloatingAd() {
+        if (!FLOATING_ADS_LIBRARY || FLOATING_ADS_LIBRARY.length === 0) return;
+
+        // Reset current video
+        floatingVideoElement.pause();
+
+        const corners = [
+            { top: '20px', left: '20px', bottom: 'auto', right: 'auto', anim: 'anim-in-left', exit: 'anim-out-left' },
+            { top: '20px', right: '20px', bottom: 'auto', left: 'auto', anim: 'anim-in-right', exit: 'anim-out-right' },
+            { bottom: '60px', left: '20px', top: 'auto', right: 'auto', anim: 'anim-in-left', exit: 'anim-out-left' },
+            { bottom: '60px', right: '20px', top: 'auto', left: 'auto', anim: 'anim-in-right', exit: 'anim-out-right' }
+        ];
         
-        player.src({ type: 'video/mp4', src: adToPlay });
-        player.play();
+        const pos = corners[Math.floor(Math.random() * corners.length)];
+        currentPosAnim = pos.exit;
+
+        // Apply Styles Safely
+        Object.assign(floatingAdContainer.style, { top: pos.top, left: pos.left, bottom: pos.bottom, right: pos.right });
+        floatingAdContainer.className = `vjs-floating-ad ${pos.anim}`;
+        
+        const rawFloatingUrl = FLOATING_ADS_LIBRARY[currentFloatingAdIndex];
+        currentFloatingAdIndex = (currentFloatingAdIndex + 1) % FLOATING_ADS_LIBRARY.length;
+        
+        floatingAdPlayCount = 0; 
+        floatingVideoElement.src = formatUrl(rawFloatingUrl);
+        floatingVideoElement.load();
+        
+        floatingVideoElement.play().then(() => {
+            floatingAdContainer.style.display = 'block';
+        }).catch(e => {
+            console.warn("Floating ad failed to play, moving to next trigger.");
+            floatingAdContainer.style.display = 'none';
+        });
+    }
+
+    floatingVideoElement.addEventListener('ended', () => {
+        floatingAdPlayCount++;
+        if (floatingAdPlayCount < 2) floatingVideoElement.play();
+        else closeFloatingAdSmoothly();
+    });
+
+    function closeFloatingAdSmoothly() {
+        floatingAdContainer.classList.add(currentPosAnim);
+        setTimeout(() => {
+            floatingAdContainer.style.display = 'none';
+            floatingVideoElement.pause();
+            floatingAdContainer.classList.remove('anim-in-left', 'anim-in-right', 'anim-out-left', 'anim-out-right');
+        }, 480);
     }
 
     function returnToMovie() {
-        isPlayingAd = false;
-        adBanner.style.display = 'none';
-        skipButton.style.display = 'none';
-        player.controls(true);
-        player.src({ type: 'video/mp4', src: mainMovieSrc });
-        player.one('loadedmetadata', () => {
-            player.currentTime(resumeTime);
-            player.play();
-        });
+        isPlayingAd = false; adBanner.style.display = 'none'; skipButton.style.display = 'none';
+        player.controls(true); player.src({ type: 'video/mp4', src: mainMovieSrc });
+        player.one('loadedmetadata', () => { player.currentTime(resumeTime); player.play(); });
     }
 
     player.on('timeupdate', function() {
         if (!mainMovieSrc) return;
+        const currentTime = Math.floor(player.currentTime());
         if (!isPlayingAd) {
-            const currentTime = Math.floor(player.currentTime());
-            if (pendingAds.length > 0 && currentTime >= pendingAds[0]) {
-                pendingAds.shift(); 
-                startAd(false);
-            }
-        } else {
-            if (!isFirstAd) {
-                const timeLeft = Math.ceil(player.duration() - player.currentTime());
-                adBanner.innerHTML = `Sponsor Break - Resuming in ${timeLeft > 0 ? timeLeft : 0}s`;
-                if (player.currentTime() >= SKIP_TIMER_SECONDS) {
-                    skipButton.style.display = 'block';
-                }
-            }
+            if (pendingAds.length > 0 && currentTime >= pendingAds[0]) { pendingAds.shift(); startAd(false); }
+            if (pendingFloatingAds.length > 0 && currentTime >= pendingFloatingAds[0]) { pendingFloatingAds.shift(); showFloatingAd(); }
+        } else if (adBanner.style.display === 'block') {
+            const timeLeft = Math.ceil(player.duration() - player.currentTime());
+            adBanner.innerHTML = `Sponsor Break - Resuming in ${timeLeft > 0 ? timeLeft : 0}s`;
+            if (player.currentTime() >= SKIP_TIMER_SECONDS) skipButton.style.display = 'block';
         }
     });
 
-    document.getElementById('load-url').addEventListener('click', () => {
-        setupNewMovie(getDirectUrl(document.getElementById('online-url').value));
-    });
-
-    document.getElementById('video-upload').addEventListener('change', (e) => {
-        if (e.target.files[0]) setupNewMovie(URL.createObjectURL(e.target.files[0]));
-    });
-
+    document.getElementById('load-url').addEventListener('click', () => setupNewMovie(document.getElementById('online-url').value));
+    document.getElementById('video-upload').addEventListener('change', (e) => { if (e.target.files[0]) setupNewMovie(URL.createObjectURL(e.target.files[0])); });
     skipButton.onclick = returnToMovie;
     player.on('ended', () => { if (isPlayingAd) returnToMovie(); });
 </script>
 
 </body>
 </html>
-
-
