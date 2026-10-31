@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☠️ EXTREME HORROR MOVIES // Unrated 18+ Vault</title>
+    <title>☠️ MORGUE ARCHIVE // EXTREME 18+ HORROR</title>
     
     <!-- Video.js CSS -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
@@ -98,12 +98,11 @@
         /* Dripping Blood Main Title */
         .portal-title {
             font-family: 'Nosifer', cursive;
-            font-size: clamp(22px, 5vw, 40px);
+            font-size: clamp(24px, 5vw, 42px);
             color: #ff0a33;
             text-shadow: 0 0 15px #ff002b, 0 0 35px #990014, 0 0 60px #5e000c;
             margin: 10px 0 12px 0;
             letter-spacing: 2px;
-            text-transform: uppercase;
         }
 
         .portal-subtitle {
@@ -130,6 +129,7 @@
 
         .warning-icon {
             font-size: 28px;
+            animation: flicker 1.8s infinite;
         }
 
         .warning-text {
@@ -254,7 +254,7 @@
         /* Video Player Frame with Heartbeat Blood Pulse */
         .video-player-wrapper {
             position: relative;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
             border: 2px solid #ff002b;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 40px rgba(255, 0, 43, 0.35);
@@ -270,103 +270,12 @@
         .video-js { 
             width: 100%; 
             height: 530px; 
-            border-radius: 8px; 
+            border-radius: 6px; 
             overflow: hidden; 
             background-color: #000; 
         }
 
-        /* Centered Big Play Button */
-        .video-js .vjs-big-play-button {
-            width: 86px !important;
-            height: 86px !important;
-            line-height: 82px !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            margin: 0 !important;
-            border-radius: 50% !important;
-            border: 2px solid #ff002b !important;
-            background: radial-gradient(circle at 40% 35%, rgba(220, 0, 35, 0.88) 0%, rgba(45, 2, 7, 0.96) 80%) !important;
-            box-shadow: 0 0 30px rgba(255, 0, 43, 0.7), inset 0 0 15px rgba(255, 0, 43, 0.4), 0 15px 35px rgba(0, 0, 0, 0.95) !important;
-            backdrop-filter: blur(8px) !important;
-            color: #ffffff !important;
-            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-            cursor: pointer !important;
-        }
-
-        .video-js .vjs-big-play-button::after {
-            content: "";
-            position: absolute;
-            inset: -9px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 0, 43, 0.55);
-            box-shadow: 0 0 25px rgba(255, 0, 43, 0.45);
-            animation: button-aura 2.2s infinite ease-out;
-            pointer-events: none;
-        }
-
-        @keyframes button-aura {
-            0% { transform: scale(0.96); opacity: 0.9; }
-            50% { transform: scale(1.18); opacity: 0.25; }
-            100% { transform: scale(1.3); opacity: 0; }
-        }
-
-        .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
-            font-size: 42px !important;
-            line-height: 82px !important;
-            color: #ffffff !important;
-            text-shadow: 0 0 15px rgba(255, 0, 43, 0.9) !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .video-js:hover .vjs-big-play-button,
-        .video-js .vjs-big-play-button:hover {
-            transform: translate(-50%, -50%) scale(1.12) !important;
-            background: radial-gradient(circle at 40% 35%, #ff052e 0%, #780012 85%) !important;
-            border-color: #ff4d66 !important;
-            box-shadow: 0 0 50px rgba(255, 0, 43, 1), inset 0 0 25px rgba(255, 0, 43, 0.7), 0 20px 45px rgba(0, 0, 0, 1) !important;
-        }
-
-        /* Skip Button strictly hidden on homepage */
-        .video-js .vjs-skip-button { 
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            position: absolute; 
-            bottom: 80px; 
-            right: 25px; 
-            background: rgba(25, 2, 5, 0.95); 
-            color: #ff667a; 
-            border: 1.5px solid #ff002b; 
-            padding: 12px 26px; 
-            cursor: pointer; 
-            z-index: 11; 
-            border-radius: 4px; 
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 0 25px rgba(255, 0, 43, 0.6);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .video-js .vjs-skip-button.is-active {
-            display: flex !important;
-            align-items: center;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-        }
-
-        .video-js .vjs-skip-button:hover {
-            background: #a30018;
-            color: #ffffff;
-            box-shadow: 0 0 40px rgba(255, 0, 43, 1);
-            transform: scale(1.04);
-        }
-
-        /* Ad Banner */
+        /* Horror Ad Banner (Red Emergency Broadcast) */
         .vjs-ad-banner { 
             display: none; 
             position: absolute; 
@@ -387,68 +296,35 @@
             z-index: 10; 
         }
 
-        /* Mixed Content Alert inside Player */
-        .mixed-content-banner {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 580px;
-            background: rgba(26, 4, 8, 0.98);
-            border: 2px solid #ff002b;
-            box-shadow: 0 0 40px rgba(255, 0, 43, 0.8), 0 20px 50px #000;
-            padding: 22px;
-            border-radius: 8px;
-            z-index: 30;
-            text-align: left;
-            font-family: 'Share Tech Mono', monospace;
+        /* Horror Skip Button */
+        .vjs-skip-button { 
+            display: none; 
+            position: absolute; 
+            bottom: 80px; 
+            right: 25px; 
+            background: rgba(25, 2, 5, 0.95); 
+            color: #ff667a; 
+            border: 1.5px solid #ff002b; 
+            padding: 12px 26px; 
+            cursor: pointer; 
+            z-index: 11; 
+            border-radius: 4px; 
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 0 25px rgba(255, 0, 43, 0.6);
+            transition: all 0.3s ease;
         }
 
-        .mixed-content-banner h3 {
-            color: #ff1a38;
-            margin: 0 0 10px 0;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .vjs-skip-button:hover {
+            background: #a30018;
+            color: #ffffff;
+            box-shadow: 0 0 40px rgba(255, 0, 43, 1);
+            transform: scale(1.04);
         }
 
-        .mixed-content-banner p {
-            font-size: 12px;
-            color: #e6ccd0;
-            line-height: 1.5;
-            margin: 0 0 12px 0;
-        }
-
-        .mixed-content-banner .step-list {
-            background: rgba(10, 2, 4, 0.9);
-            padding: 12px 16px;
-            border-radius: 4px;
-            border: 1px solid #570e17;
-            font-size: 12px;
-            color: #ffccd3;
-            line-height: 1.6;
-        }
-
-        .mixed-content-banner .step-list strong {
-            color: #ff334b;
-        }
-
-        .mixed-content-banner .btn-close-alert {
-            margin-top: 12px;
-            background: #ff002b;
-            color: #fff;
-            border: none;
-            padding: 7px 18px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Share Tech Mono', monospace;
-            font-weight: bold;
-        }
-
-        /* Floating Ad */
+        /* Horror Floating Ad Container */
         .vjs-floating-ad {
             display: none; 
             position: absolute;
@@ -467,124 +343,375 @@
             .input-group { flex-direction: column; }
         }
 
-        .vjs-floating-ad video { width: 100%; display: block; pointer-events: none; }
-        .vjs-floating-close { 
-            position: absolute; top: 0; right: 0; background: rgba(160, 0, 25, 0.95); 
-            color: #ffffff; border: 1px solid #ff3352; padding: 6px 14px; 
-            cursor: pointer; z-index: 21; font-weight: 900; font-size: 15px; 
+        .vjs-floating-ad video { 
+            width: 100%; 
+            display: block; 
+            pointer-events: none; 
         }
 
-        /* Video.js Control Bar Overrides */
+        .vjs-floating-close { 
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            background: rgba(160, 0, 25, 0.95); 
+            color: #ffffff; 
+            border: 1px solid #ff3352; 
+            padding: 6px 14px; 
+            cursor: pointer; 
+            z-index: 21; 
+            font-weight: 900; 
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        .vjs-floating-close:hover {
+            background: #ff002b;
+            box-shadow: 0 0 15px #ff002b;
+        }
+
+        /* Video.js Darkroom Overrides */
         .vjs-theme-fantasy .vjs-control-bar {
             background: linear-gradient(0deg, rgba(8, 2, 4, 0.98), rgba(20, 2, 6, 0.7), transparent) !important;
-            border-top: 1px solid rgba(255, 0, 43, 0.25) !important;
         }
-        .vjs-theme-fantasy .vjs-play-progress { background-color: #ff002b !important; box-shadow: 0 0 15px #ff002b !important; }
-        .vjs-theme-fantasy .vjs-slider { background-color: rgba(60, 10, 18, 0.8) !important; }
-        .vjs-theme-fantasy .vjs-volume-level { background-color: #ff002b !important; }
+        .vjs-theme-fantasy .vjs-play-progress {
+            background-color: #ff002b !important;
+            box-shadow: 0 0 15px #ff002b !important;
+        }
+        .vjs-theme-fantasy .vjs-play-progress:before {
+            color: #ff002b !important;
+            text-shadow: 0 0 10px #ff002b !important;
+        }
+        .vjs-theme-fantasy .vjs-slider {
+            background-color: rgba(60, 10, 18, 0.8) !important;
+        }
+        .vjs-theme-fantasy .vjs-volume-level {
+            background-color: #ff002b !important;
+        }
+        .video-js .vjs-big-play-button {
+            border: 2px solid #ff002b !important;
+            background-color: rgba(50, 2, 8, 0.9) !important;
+            box-shadow: 0 0 35px rgba(255, 0, 43, 0.8) !important;
+            color: #ff3352 !important;
+            border-radius: 6px !important;
+        }
+        .video-js:hover .vjs-big-play-button {
+            background-color: #b8001a !important;
+            color: #fff !important;
+            box-shadow: 0 0 55px rgba(255, 0, 43, 1) !important;
+        }
 
-        /* Movie Card Section */
-        .archive-section { margin-top: 40px; }
+        /* =========================================================
+           💀 EXTREME HORROR MOVIE CARD (WITH PROMINENT THUMBNAIL)
+           ========================================================= */
+        .archive-section {
+            margin-top: 40px;
+        }
+
         .archive-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 20px; border-bottom: 2px solid #ff002b; padding-bottom: 12px;
-        }
-        .archive-title {
-            font-family: 'Cinzel', serif; font-size: 20px; font-weight: 900;
-            color: #ffffff; letter-spacing: 2px; margin: 0; display: flex; align-items: center; gap: 10px;
-        }
-        .archive-tag {
-            font-size: 11px; font-family: 'Share Tech Mono', monospace; font-weight: 700;
-            letter-spacing: 1.5px; color: #ff002b; background: rgba(50, 0, 8, 0.85);
-            padding: 5px 12px; border-radius: 3px; border: 1px solid #ff002b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff002b;
+            padding-bottom: 12px;
         }
 
+        .archive-title {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 2px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 12px rgba(255, 0, 43, 0.8);
+        }
+
+        .archive-tag {
+            font-size: 11px;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ff002b;
+            background: rgba(50, 0, 8, 0.85);
+            padding: 5px 12px;
+            border-radius: 3px;
+            border: 1px solid #ff002b;
+            box-shadow: 0 0 10px rgba(255, 0, 43, 0.4);
+        }
+
+        /* Movie Card Body */
         .movie-card {
-            display: flex; gap: 25px; background: rgba(14, 5, 8, 0.95);
-            border: 1.5px solid #570e17; border-radius: 8px; overflow: hidden;
-            padding: 22px; cursor: pointer; transition: all 0.35s ease;
+            display: flex;
+            gap: 25px;
+            background: rgba(14, 5, 8, 0.95);
+            border: 1.5px solid #570e17;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 22px;
+            cursor: pointer;
+            transition: all 0.35s ease;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(180, 0, 30, 0.15);
             position: relative;
         }
+
         .movie-card:hover {
-            border-color: #ff002b; transform: translateY(-4px);
+            border-color: #ff002b;
+            transform: translateY(-4px);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.98), 0 0 45px rgba(255, 0, 43, 0.5);
             background: rgba(22, 6, 11, 0.98);
         }
+
         .movie-card.is-active {
-            border-color: #ff002b; box-shadow: 0 0 40px rgba(255, 0, 43, 0.85);
+            border-color: #ff002b;
+            box-shadow: 0 0 40px rgba(255, 0, 43, 0.85), inset 0 0 20px rgba(255, 0, 43, 0.3);
         }
 
+        /* Prominent Thumbnail Container */
         .card-thumb-frame {
-            width: 190px; height: 275px; flex-shrink: 0; position: relative;
-            border-radius: 6px; overflow: hidden; background: #1f0307;
-            border: 2px solid #85121f; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+            width: 190px;
+            height: 275px;
+            flex-shrink: 0;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #1f0307;
+            border: 2px solid #85121f;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 43, 0.25);
         }
+
         .movie-thumb-img {
-            width: 100%; height: 100%; object-fit: cover; display: block;
-            transition: transform 0.45s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.45s ease, filter 0.45s ease;
+            filter: contrast(110%) brightness(95%);
         }
-        .movie-card:hover .movie-thumb-img { transform: scale(1.08); }
 
+        .movie-card:hover .movie-thumb-img {
+            transform: scale(1.08);
+            filter: contrast(120%) brightness(105%);
+        }
+
+        /* Corner Hazard Tape Badge */
         .hazard-ribbon {
-            position: absolute; top: 10px; left: -32px; background: #d00000;
-            color: #ffffff; font-family: 'Share Tech Mono', monospace; font-size: 9px;
-            font-weight: 900; letter-spacing: 1px; padding: 4px 34px; transform: rotate(-45deg);
+            position: absolute;
+            top: 10px;
+            left: -32px;
+            background: #d00000;
+            color: #ffffff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            padding: 4px 34px;
+            transform: rotate(-45deg);
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            border-bottom: 1px solid #ff4d64;
         }
+
+        /* Morgue Toe-Tag Overlay at Bottom of Thumbnail */
         .thumb-toe-tag {
-            position: absolute; bottom: 0; left: 0; width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             background: linear-gradient(0deg, rgba(10, 1, 3, 0.95) 0%, rgba(10, 1, 3, 0.7) 70%, transparent 100%);
-            padding: 10px 8px 6px; font-family: 'Share Tech Mono', monospace;
-            font-size: 9px; color: #ff8595;
+            padding: 10px 8px 6px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 9px;
+            color: #ff8595;
+            text-shadow: 0 0 5px #ff002b;
+            line-height: 1.3;
         }
+
+        /* Card Overlay Play Button */
         .card-play-overlay {
-            position: absolute; inset: 0; background: rgba(20, 2, 5, 0.5);
-            display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
+            position: absolute;
+            inset: 0;
+            background: rgba(20, 2, 5, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .movie-card:hover .card-play-overlay { opacity: 1; }
+
+        .movie-card:hover .card-play-overlay {
+            opacity: 1;
+        }
+
         .play-icon {
-            width: 52px; height: 52px; border-radius: 50%; background: #ff002b;
-            color: #fff; display: flex; align-items: center; justify-content: center;
-            font-size: 22px; padding-left: 4px; box-shadow: 0 0 30px #ff002b;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #ff002b;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            padding-left: 4px;
+            box-shadow: 0 0 30px #ff002b;
         }
 
-        .movie-details { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .movie-meta-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-        .tag-extreme { background: #ff002b; color: #ffffff; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 3px; }
-        .tag-biohazard { background: rgba(50, 5, 10, 0.85); color: #ff8090; border: 1px solid #9e1322; font-family: 'Share Tech Mono', monospace; font-size: 11px; padding: 4px 10px; border-radius: 3px; }
-        .tag-rating { background: rgba(40, 15, 0, 0.85); color: #ffb703; border: 1px solid #996e00; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 3px; }
+        /* Details */
+        .movie-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-        .movie-title { font-family: 'Creepster', cursive; font-size: 32px; color: #ffffff; letter-spacing: 2px; margin: 0 0 10px 0; }
-        .movie-card:hover .movie-title { color: #ff1a38; text-shadow: 0 0 20px #ff002b; }
-        .movie-synopsis { font-size: 13px; color: #b0999d; line-height: 1.6; margin: 0 0 15px 0; font-family: 'Inter', sans-serif; }
-        .synopsis-highlight { color: #ff667a; font-weight: 600; }
+        .movie-meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tag-extreme {
+            background: #ff002b;
+            color: #ffffff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(255, 0, 43, 0.6);
+        }
+
+        .tag-biohazard {
+            background: rgba(50, 5, 10, 0.85);
+            color: #ff8090;
+            border: 1px solid #9e1322;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+
+        .tag-rating {
+            background: rgba(40, 15, 0, 0.85);
+            color: #ffb703;
+            border: 1px solid #996e00;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+
+        .movie-title {
+            font-family: 'Creepster', cursive;
+            font-size: 32px;
+            color: #ffffff;
+            letter-spacing: 2px;
+            margin: 0 0 10px 0;
+            transition: color 0.3s;
+            text-shadow: 0 0 10px rgba(255, 0, 43, 0.4);
+        }
+
+        .movie-card:hover .movie-title {
+            color: #ff1a38;
+            text-shadow: 0 0 20px #ff002b, 0 0 40px #800010;
+        }
+
+        .movie-synopsis {
+            font-size: 13px;
+            color: #b0999d;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .synopsis-highlight {
+            color: #ff667a;
+            font-weight: 600;
+        }
 
         .card-footer {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-top: auto; flex-wrap: wrap; gap: 14px; border-top: 1px solid #3d0a11; padding-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            flex-wrap: wrap;
+            gap: 14px;
+            border-top: 1px solid #3d0a11;
+            padding-top: 14px;
         }
+
         .btn-play-card {
-            background: linear-gradient(135deg, #ff002b, #8a0014); color: #ffffff;
-            border: 1px solid #ff4d64; padding: 12px 24px; border-radius: 4px;
-            font-family: 'Cinzel', serif; font-weight: 900; font-size: 13px; letter-spacing: 1.5px;
-            cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s;
+            background: linear-gradient(135deg, #ff002b, #8a0014);
+            color: #ffffff;
+            border: 1px solid #ff4d64;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 43, 0.6);
         }
-        .movie-card:hover .btn-play-card { background: linear-gradient(135deg, #ff1a3b, #bd001b); transform: scale(1.03); }
-        .stream-status { font-size: 12px; color: #ff8595; font-family: 'Share Tech Mono', monospace; }
+
+        .movie-card:hover .btn-play-card {
+            background: linear-gradient(135deg, #ff1a3b, #bd001b);
+            box-shadow: 0 0 35px rgba(255, 0, 43, 0.95);
+            transform: scale(1.03);
+        }
+
+        .stream-status {
+            font-size: 12px;
+            color: #ff8595;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 1.5px;
+        }
 
         @media screen and (max-width: 700px) {
-            .movie-card { flex-direction: column; align-items: center; }
-            .card-thumb-frame { width: 100%; max-width: 260px; height: 360px; }
-            .card-footer { flex-direction: column; align-items: flex-start; }
-            .btn-play-card { width: 100%; justify-content: center; }
+            .movie-card {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card-thumb-frame {
+                width: 100%;
+                max-width: 260px;
+                height: 360px;
+            }
+            .card-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .btn-play-card {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
+        /* Bottom Disclaimer */
         .mature-disclaimer {
-            margin-top: 35px; padding: 16px 20px; background: rgba(20, 3, 6, 0.85);
-            border-left: 4px solid #ff002b; border-radius: 4px; font-family: 'Share Tech Mono', monospace;
-            font-size: 12px; color: #ba999e; line-height: 1.6;
+            margin-top: 35px;
+            padding: 16px 20px;
+            background: rgba(20, 3, 6, 0.85);
+            border-left: 4px solid #ff002b;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: #ba999e;
+            line-height: 1.6;
         }
-        .mature-disclaimer strong { color: #ff002b; }
+
+        .mature-disclaimer strong {
+            color: #ff002b;
+        }
 
         /* Animations */
         .anim-in-left { animation: slideInL 0.5s ease-out forwards; }
@@ -609,7 +736,7 @@
         <div class="quarantine-tag">
             <span>&#9760;</span> LEVEL IV BIOHAZARD &bull; ADULTS ONLY 18+ UNCENSORED <span>&#9760;</span>
         </div>
-        <h1 class="portal-title">EXTREME HORROR MOVIES</h1>
+        <h1 class="portal-title">MORGUE ARCHIVE</h1>
         <p class="portal-subtitle">[ RESTRICTED ACCESS &bull; AUTOPSY TAPES &bull; UNRATED HORROR REEL ]</p>
     </div>
 
@@ -635,20 +762,6 @@
     <!-- VIDEO PLAYER WRAPPER -->
     <div class="video-player-wrapper">
         <video id="my-video" class="video-js vjs-theme-fantasy" controls preload="auto"></video>
-        
-        <!-- On-Screen Mixed Content Guidance Banner -->
-        <div class="mixed-content-banner" id="mixed-content-alert">
-            <h3>⚠️ BROWSER BLOCKED INSECURE STREAM (HTTP ON HTTPS)</h3>
-            <p>Your live GitHub site is on <strong>HTTPS</strong>, but this video link uses <strong>HTTP (CircleFTP)</strong>. Modern browsers block HTTP streams by default on HTTPS websites.</p>
-            <div class="step-list">
-                <strong>How to play on Chrome or Edge (takes 5 seconds):</strong><br>
-                1. Click the <strong>Padlock / Tune icon (🔒)</strong> left of your address bar.<br>
-                2. Click <strong>Site settings</strong>.<br>
-                3. Set <strong>"Insecure content"</strong> to <strong>Allow</strong>.<br>
-                4. Refresh the page and click the movie card again!
-            </div>
-            <button class="btn-close-alert" onclick="document.getElementById('mixed-content-alert').style.display='none'">Dismiss</button>
-        </div>
     </div>
 
     <!-- 💀 FEATURED HORROR ARCHIVE SECTION -->
@@ -749,12 +862,7 @@
 
     const player = videojs('my-video');
     const adBanner = document.createElement('div'); adBanner.className = 'vjs-ad-banner'; player.el().appendChild(adBanner);
-    
-    // Skip Button (Completely hidden on initial homepage load)
-    const skipButton = document.createElement('button'); 
-    skipButton.className = 'vjs-skip-button'; 
-    skipButton.innerHTML = 'Override Quarantine &raquo;'; 
-    player.el().appendChild(skipButton);
+    const skipButton = document.createElement('button'); skipButton.className = 'vjs-skip-button'; skipButton.innerHTML = 'Override Quarantine &raquo;'; player.el().appendChild(skipButton);
 
     const floatingAdContainer = document.createElement('div');
     floatingAdContainer.className = 'vjs-floating-ad';
@@ -784,7 +892,6 @@
         pendingFloatingAds = [...FLOATING_AD_TIMESTAMPS].sort((a, b) => a - b);
         currentAdIndex = 0;
         currentFloatingAdIndex = 0;
-        document.getElementById('mixed-content-alert').style.display = 'none';
         startAd(true);
     }
 
@@ -796,7 +903,7 @@
         if (!isPreRoll) resumeTime = player.currentTime();
         
         adBanner.style.display = isPreRoll ? 'none' : 'block';
-        skipButton.classList.remove('is-active'); 
+        skipButton.style.display = 'none';
         player.controls(isPreRoll);
 
         let rawUrl = isPreRoll ? RAW_FIXED_FIRST_AD : SEQUENTIAL_ADS_LIBRARY[currentAdIndex];
@@ -859,7 +966,7 @@
     function returnToMovie() {
         isPlayingAd = false; 
         adBanner.style.display = 'none'; 
-        skipButton.classList.remove('is-active'); 
+        skipButton.style.display = 'none';
         player.controls(true); 
 
         const lower = mainMovieSrc.toLowerCase();
@@ -874,13 +981,6 @@
         });
     }
 
-    // Catch Mixed Content / Codec Errors
-    player.on('error', function() {
-        if (window.location.protocol === 'https:' && mainMovieSrc.startsWith('http:')) {
-            document.getElementById('mixed-content-alert').style.display = 'block';
-        }
-    });
-
     player.on('timeupdate', function() {
         if (!mainMovieSrc) return;
         const currentTime = Math.floor(player.currentTime());
@@ -890,10 +990,7 @@
         } else if (adBanner.style.display === 'block') {
             const timeLeft = Math.ceil(player.duration() - player.currentTime());
             adBanner.innerHTML = `⚠️ QUARANTINE INTERRUPT &bull; RESUMING AUTOPSY IN ${timeLeft > 0 ? timeLeft : 0}s`;
-            
-            if (player.currentTime() >= SKIP_TIMER_SECONDS) {
-                skipButton.classList.add('is-active');
-            }
+            if (player.currentTime() >= SKIP_TIMER_SECONDS) skipButton.style.display = 'block';
         }
     });
 
