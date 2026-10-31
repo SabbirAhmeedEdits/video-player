@@ -95,7 +95,7 @@
             50% { border-color: #6b000d; box-shadow: 0 0 5px rgba(107, 0, 13, 0.2); }
         }
 
-        /* Dripping Blood Main Title: Extreme Horror Movies */
+        /* Dripping Blood Main Title */
         .portal-title {
             font-family: 'Nosifer', cursive;
             font-size: clamp(22px, 5vw, 40px);
@@ -275,9 +275,7 @@
             background-color: #000; 
         }
 
-        /* =========================================================
-           🎯 BEAUTIFUL GLOWING HORROR BIG PLAY BUTTON
-           ========================================================= */
+        /* Centered Big Play Button */
         .video-js .vjs-big-play-button {
             width: 86px !important;
             height: 86px !important;
@@ -296,7 +294,6 @@
             cursor: pointer !important;
         }
 
-        /* Pulsing Aura Ring around the Big Play Button */
         .video-js .vjs-big-play-button::after {
             content: "";
             position: absolute;
@@ -330,9 +327,7 @@
             box-shadow: 0 0 50px rgba(255, 0, 43, 1), inset 0 0 25px rgba(255, 0, 43, 0.7), 0 20px 45px rgba(0, 0, 0, 1) !important;
         }
 
-        /* =========================================================
-           🔒 STRICTLY HIDDEN ON HOMEPAGE: OVERRIDE QUARANTINE BUTTON
-           ========================================================= */
+        /* Skip Button strictly hidden on homepage */
         .video-js .vjs-skip-button { 
             display: none !important;
             opacity: 0 !important;
@@ -356,7 +351,6 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
-        /* Only visible when JS explicitly adds 'is-active' during ads */
         .video-js .vjs-skip-button.is-active {
             display: flex !important;
             align-items: center;
@@ -372,7 +366,7 @@
             transform: scale(1.04);
         }
 
-        /* Horror Ad Banner */
+        /* Ad Banner */
         .vjs-ad-banner { 
             display: none; 
             position: absolute; 
@@ -393,7 +387,68 @@
             z-index: 10; 
         }
 
-        /* Horror Floating Ad Container */
+        /* Mixed Content Alert inside Player */
+        .mixed-content-banner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 580px;
+            background: rgba(26, 4, 8, 0.98);
+            border: 2px solid #ff002b;
+            box-shadow: 0 0 40px rgba(255, 0, 43, 0.8), 0 20px 50px #000;
+            padding: 22px;
+            border-radius: 8px;
+            z-index: 30;
+            text-align: left;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .mixed-content-banner h3 {
+            color: #ff1a38;
+            margin: 0 0 10px 0;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mixed-content-banner p {
+            font-size: 12px;
+            color: #e6ccd0;
+            line-height: 1.5;
+            margin: 0 0 12px 0;
+        }
+
+        .mixed-content-banner .step-list {
+            background: rgba(10, 2, 4, 0.9);
+            padding: 12px 16px;
+            border-radius: 4px;
+            border: 1px solid #570e17;
+            font-size: 12px;
+            color: #ffccd3;
+            line-height: 1.6;
+        }
+
+        .mixed-content-banner .step-list strong {
+            color: #ff334b;
+        }
+
+        .mixed-content-banner .btn-close-alert {
+            margin-top: 12px;
+            background: #ff002b;
+            color: #fff;
+            border: none;
+            padding: 7px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+        }
+
+        /* Floating Ad */
         .vjs-floating-ad {
             display: none; 
             position: absolute;
@@ -412,30 +467,11 @@
             .input-group { flex-direction: column; }
         }
 
-        .vjs-floating-ad video { 
-            width: 100%; 
-            display: block; 
-            pointer-events: none; 
-        }
-
+        .vjs-floating-ad video { width: 100%; display: block; pointer-events: none; }
         .vjs-floating-close { 
-            position: absolute; 
-            top: 0; 
-            right: 0; 
-            background: rgba(160, 0, 25, 0.95); 
-            color: #ffffff; 
-            border: 1px solid #ff3352; 
-            padding: 6px 14px; 
-            cursor: pointer; 
-            z-index: 21; 
-            font-weight: 900; 
-            font-size: 15px;
-            transition: all 0.2s;
-        }
-
-        .vjs-floating-close:hover {
-            background: #ff002b;
-            box-shadow: 0 0 15px #ff002b;
+            position: absolute; top: 0; right: 0; background: rgba(160, 0, 25, 0.95); 
+            color: #ffffff; border: 1px solid #ff3352; padding: 6px 14px; 
+            cursor: pointer; z-index: 21; font-weight: 900; font-size: 15px; 
         }
 
         /* Video.js Control Bar Overrides */
@@ -443,644 +479,90 @@
             background: linear-gradient(0deg, rgba(8, 2, 4, 0.98), rgba(20, 2, 6, 0.7), transparent) !important;
             border-top: 1px solid rgba(255, 0, 43, 0.25) !important;
         }
-        .vjs-theme-fantasy .vjs-play-progress {
-            background-color: #ff002b !important;
-            box-shadow: 0 0 15px #ff002b !important;
-        }
-        .vjs-theme-fantasy .vjs-play-progress:before {
-            color: #ff002b !important;
-            text-shadow: 0 0 10px #ff002b !important;
-        }
-        .vjs-theme-fantasy .vjs-slider {
-            background-color: rgba(60, 10, 18, 0.8) !important;
-        }
-        .vjs-theme-fantasy .vjs-volume-level {
-            background-color: #ff002b !important;
-        }
+        .vjs-theme-fantasy .vjs-play-progress { background-color: #ff002b !important; box-shadow: 0 0 15px #ff002b !important; }
+        .vjs-theme-fantasy .vjs-slider { background-color: rgba(60, 10, 18, 0.8) !important; }
+        .vjs-theme-fantasy .vjs-volume-level { background-color: #ff002b !important; }
 
-        /* =========================================================
-           💀 EXTREME HORROR MOVIE CARD (WITH PROMINENT THUMBNAIL)
-           ========================================================= */
-        .archive-section {
-            margin-top: 40px;
-        }
-
+        /* Movie Card Section */
+        .archive-section { margin-top: 40px; }
         .archive-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #ff002b;
-            padding-bottom: 12px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 20px; border-bottom: 2px solid #ff002b; padding-bottom: 12px;
         }
-
         .archive-title {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 12px rgba(255, 0, 43, 0.8);
+            font-family: 'Cinzel', serif; font-size: 20px; font-weight: 900;
+            color: #ffffff; letter-spacing: 2px; margin: 0; display: flex; align-items: center; gap: 10px;
         }
-
         .archive-tag {
-            font-size: 11px;
-            font-family: 'Share Tech Mono', monospace;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: #ff002b;
-            background: rgba(50, 0, 8, 0.85);
-            padding: 5px 12px;
-            border-radius: 3px;
-            border: 1px solid #ff002b;
-            box-shadow: 0 0 10px rgba(255, 0, 43, 0.4);
+            font-size: 11px; font-family: 'Share Tech Mono', monospace; font-weight: 700;
+            letter-spacing: 1.5px; color: #ff002b; background: rgba(50, 0, 8, 0.85);
+            padding: 5px 12px; border-radius: 3px; border: 1px solid #ff002b;
         }
 
-        /* Movie Card Body */
         .movie-card {
-            display: flex;
-            gap: 25px;
-            background: rgba(14, 5, 8, 0.95);
-            border: 1.5px solid #570e17;
-            border-radius: 8px;
-            overflow: hidden;
-            padding: 22px;
-            cursor: pointer;
-            transition: all 0.35s ease;
+            display: flex; gap: 25px; background: rgba(14, 5, 8, 0.95);
+            border: 1.5px solid #570e17; border-radius: 8px; overflow: hidden;
+            padding: 22px; cursor: pointer; transition: all 0.35s ease;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(180, 0, 30, 0.15);
             position: relative;
         }
-
         .movie-card:hover {
-            border-color: #ff002b;
-            transform: translateY(-4px);
+            border-color: #ff002b; transform: translateY(-4px);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.98), 0 0 45px rgba(255, 0, 43, 0.5);
             background: rgba(22, 6, 11, 0.98);
         }
-
         .movie-card.is-active {
-            border-color: #ff002b;
-            box-shadow: 0 0 40px rgba(255, 0, 43, 0.85), inset 0 0 20px rgba(255, 0, 43, 0.3);
+            border-color: #ff002b; box-shadow: 0 0 40px rgba(255, 0, 43, 0.85);
         }
 
-        /* Prominent Thumbnail Container */
         .card-thumb-frame {
-            width: 190px;
-            height: 275px;
-            flex-shrink: 0;
-            position: relative;
-            border-radius: 6px;
-            overflow: hidden;
-            background: #1f0307;
-            border: 2px solid #85121f;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 43, 0.25);
+            width: 190px; height: 275px; flex-shrink: 0; position: relative;
+            border-radius: 6px; overflow: hidden; background: #1f0307;
+            border: 2px solid #85121f; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
         }
-
         .movie-thumb-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.45s ease, filter 0.45s ease;
-            filter: contrast(110%) brightness(95%);
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            transition: transform 0.45s ease;
         }
+        .movie-card:hover .movie-thumb-img { transform: scale(1.08); }
 
-        .movie-card:hover .movie-thumb-img {
-            transform: scale(1.08);
-            filter: contrast(120%) brightness(105%);
-        }
-
-        /* Corner Hazard Tape Badge */
         .hazard-ribbon {
-            position: absolute;
-            top: 10px;
-            left: -32px;
-            background: #d00000;
-            color: #ffffff;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 9px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            padding: 4px 34px;
-            transform: rotate(-45deg);
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
-            border-bottom: 1px solid #ff4d64;
+            position: absolute; top: 10px; left: -32px; background: #d00000;
+            color: #ffffff; font-family: 'Share Tech Mono', monospace; font-size: 9px;
+            font-weight: 900; letter-spacing: 1px; padding: 4px 34px; transform: rotate(-45deg);
         }
-
-        /* Morgue Toe-Tag Overlay at Bottom of Thumbnail */
         .thumb-toe-tag {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            position: absolute; bottom: 0; left: 0; width: 100%;
             background: linear-gradient(0deg, rgba(10, 1, 3, 0.95) 0%, rgba(10, 1, 3, 0.7) 70%, transparent 100%);
-            padding: 10px 8px 6px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 9px;
-            color: #ff8595;
-            text-shadow: 0 0 5px #ff002b;
-            line-height: 1.3;
+            padding: 10px 8px 6px; font-family: 'Share Tech Mono', monospace;
+            font-size: 9px; color: #ff8595;
         }
-
-        /* Card Overlay Play Button */
         .card-play-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(20, 2, 5, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            position: absolute; inset: 0; background: rgba(20, 2, 5, 0.5);
+            display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
         }
-
-        .movie-card:hover .card-play-overlay {
-            opacity: 1;
-        }
-
+        .movie-card:hover .card-play-overlay { opacity: 1; }
         .play-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: #ff002b;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            padding-left: 4px;
-            box-shadow: 0 0 30px #ff002b;
+            width: 52px; height: 52px; border-radius: 50%; background: #ff002b;
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-size: 22px; padding-left: 4px; box-shadow: 0 0 30px #ff002b;
         }
 
-        /* Details */
-        .movie-details {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        .movie-details { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .movie-meta-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .tag-extreme { background: #ff002b; color: #ffffff; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 3px; }
+        .tag-biohazard { background: rgba(50, 5, 10, 0.85); color: #ff8090; border: 1px solid #9e1322; font-family: 'Share Tech Mono', monospace; font-size: 11px; padding: 4px 10px; border-radius: 3px; }
+        .tag-rating { background: rgba(40, 15, 0, 0.85); color: #ffb703; border: 1px solid #996e00; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 3px; }
 
-        .movie-meta-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .tag-extreme {
-            background: #ff002b;
-            color: #ffffff;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            font-weight: 900;
-            padding: 4px 10px;
-            border-radius: 3px;
-            letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(255, 0, 43, 0.6);
-        }
-
-        .tag-biohazard {
-            background: rgba(50, 5, 10, 0.85);
-            color: #ff8090;
-            border: 1px solid #9e1322;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 3px;
-        }
-
-        .tag-rating {
-            background: rgba(40, 15, 0, 0.85);
-            color: #ffb703;
-            border: 1px solid #996e00;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 3px;
-        }
-
-        .movie-title {
-            font-family: 'Creepster', cursive;
-            font-size: 32px;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin: 0 0 10px 0;
-            transition: color 0.3s;
-            text-shadow: 0 0 10px rgba(255, 0, 43, 0.4);
-        }
-
-        .movie-card:hover .movie-title {
-            color: #ff1a38;
-            text-shadow: 0 0 20px #ff002b, 0 0 40px #800010;
-        }
-
-        .movie-synopsis {
-            font-size: 13px;
-            color: #b0999d;
-            line-height: 1.6;
-            margin: 0 0 15px 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .synopsis-highlight {
-            color: #ff667a;
-            font-weight: 600;
-        }
+        .movie-title { font-family: 'Creepster', cursive; font-size: 32px; color: #ffffff; letter-spacing: 2px; margin: 0 0 10px 0; }
+        .movie-card:hover .movie-title { color: #ff1a38; text-shadow: 0 0 20px #ff002b; }
+        .movie-synopsis { font-size: 13px; color: #b0999d; line-height: 1.6; margin: 0 0 15px 0; font-family: 'Inter', sans-serif; }
+        .synopsis-highlight { color: #ff667a; font-weight: 600; }
 
         .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-            flex-wrap: wrap;
-            gap: 14px;
-            border-top: 1px solid #3d0a11;
-            padding-top: 14px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: auto; flex-wrap: wrap; gap: 14px; border-top: 1px solid #3d0a11; padding-top: 14px;
         }
-
         .btn-play-card {
-            background: linear-gradient(135deg, #ff002b, #8a0014);
-            color: #ffffff;
-            border: 1px solid #ff4d64;
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            font-size: 13px;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(255, 0, 43, 0.6);
-        }
-
-        .movie-card:hover .btn-play-card {
-            background: linear-gradient(135deg, #ff1a3b, #bd001b);
-            box-shadow: 0 0 35px rgba(255, 0, 43, 0.95);
-            transform: scale(1.03);
-        }
-
-        .stream-status {
-            font-size: 12px;
-            color: #ff8595;
-            font-family: 'Share Tech Mono', monospace;
-            letter-spacing: 1.5px;
-        }
-
-        @media screen and (max-width: 700px) {
-            .movie-card {
-                flex-direction: column;
-                align-items: center;
-            }
-            .card-thumb-frame {
-                width: 100%;
-                max-width: 260px;
-                height: 360px;
-            }
-            .card-footer {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .btn-play-card {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        /* Bottom Disclaimer */
-        .mature-disclaimer {
-            margin-top: 35px;
-            padding: 16px 20px;
-            background: rgba(20, 3, 6, 0.85);
-            border-left: 4px solid #ff002b;
-            border-radius: 4px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 12px;
-            color: #ba999e;
-            line-height: 1.6;
-        }
-
-        .mature-disclaimer strong {
-            color: #ff002b;
-        }
-
-        /* Animations */
-        .anim-in-left { animation: slideInL 0.5s ease-out forwards; }
-        .anim-in-right { animation: slideInR 0.5s ease-out forwards; }
-        .anim-out-left { animation: slideOutL 0.5s ease-in forwards; }
-        .anim-out-right { animation: slideOutR 0.5s ease-in forwards; }
-
-        @keyframes slideInL { from { transform: translateX(-130%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideInR { from { transform: translateX(130%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOutL { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-130%); opacity: 0; } }
-        @keyframes slideOutR { from { transform: translateX(0); opacity: 1; } to { transform: translateX(130%); opacity: 0; } }
-    </style>
-</head>
-<body>
-
-<div class="hazard-caution-bar"></div>
-
-<div class="container">
-    
-    <!-- EXTREME HORROR HEADER -->
-    <div class="horror-header">
-        <div class="quarantine-tag">
-            <span>&#9760;</span> LEVEL IV BIOHAZARD &bull; ADULTS ONLY 18+ UNCENSORED <span>&#9760;</span>
-        </div>
-        <!-- Main Title -->
-        <h1 class="portal-title">EXTREME HORROR MOVIES</h1>
-        <p class="portal-subtitle">[ RESTRICTED ACCESS &bull; AUTOPSY TAPES &bull; UNRATED HORROR REEL ]</p>
-    </div>
-
-    <!-- EXTREME WARNING ADVISORY -->
-    <div class="extreme-warning-alert">
-        <div class="warning-icon">☣️</div>
-        <div class="warning-text">
-            <strong>ADULT WARNING (NC-17 / 18+):</strong> This portal contains intense visceral terror, graphic autopsy footage, and extreme psychological dread. Strict age restriction enforced. <strong>Do not proceed if faint of heart.</strong>
-        </div>
-    </div>
-
-    <!-- TERMINAL INPUT CONTROLS -->
-    <div class="controls">
-        <div class="input-group">
-            <input type="text" id="online-url" placeholder="Paste Direct Stream URL (MKV, MP4, WebM, Dropbox)...">
-            <button id="load-url">Initiate Autopsy</button>
-        </div>
-        <div class="file-upload-wrapper">
-            <input type="file" id="video-upload" accept="video/*">
-        </div>
-    </div>
-
-    <!-- VIDEO PLAYER WRAPPER -->
-    <div class="video-player-wrapper">
-        <video id="my-video" class="video-js vjs-theme-fantasy" controls preload="auto"></video>
-    </div>
-
-    <!-- 💀 FEATURED HORROR ARCHIVE SECTION -->
-    <div class="archive-section">
-        <div class="archive-header">
-            <h2 class="archive-title"><span>☠️</span> UNSEALED MORGUE CASE FILE</h2>
-            <span class="archive-tag">18+ RESTRICTED GORE</span>
-        </div>
-
-        <!-- Movie Card with High-Res Thumbnail -->
-        <div class="movie-card" id="card-jane-doe" onclick="playJaneDoeMovie()">
-            
-            <!-- THUMBNAIL WITH TOE-TAG & CAUTION RIBBON -->
-            <div class="card-thumb-frame">
-                <img src="https://upload.wikimedia.org/wikipedia/en/4/47/The_Autopsy_of_Jane_Doe.jpeg" 
-                     alt="The Autopsy of Jane Doe (2016) Official Poster"
-                     class="movie-thumb-img"
-                     referrerpolicy="no-referrer"
-                     onerror="if(this.src!=='https://image.tmdb.org/t/p/w500/2pOd80PQSJ9cUbli7PDeX59q3vQ.jpg'){this.src='https://image.tmdb.org/t/p/w500/2pOd80PQSJ9cUbli7PDeX59q3vQ.jpg';}">
-                
-                <span class="hazard-ribbon">18+ EXTREME</span>
-                
-                <div class="thumb-toe-tag">
-                    CORONER ID: #397250<br>
-                    SPECIMEN: JANE DOE
-                </div>
-
-                <div class="card-play-overlay">
-                    <span class="play-icon">&#9658;</span>
-                </div>
-            </div>
-
-            <!-- MOVIE DETAILS -->
-            <div class="movie-details">
-                <div>
-                    <div class="movie-meta-tags">
-                        <span class="tag-extreme">18+ GRAPHIC HORROR</span>
-                        <span class="tag-biohazard">DUAL AUDIO [HIN + ENG]</span>
-                        <span class="tag-biohazard">1080p BLURAY</span>
-                        <span class="tag-rating">&#9733; 6.8 / 10 IMDb</span>
-                    </div>
-
-                    <h3 class="movie-title">The Autopsy of Jane Doe (2016)</h3>
-                    
-                    <p class="movie-synopsis">
-                        When an unblemished, unidentified corpse of a young woman arrives at a subterranean morgue at midnight, seasoned coroners Tommy and Austin begin an emergency post-mortem. <span class="synopsis-highlight">As they cut deeper into her pristine flesh, they uncover horrific internal mutilations, carved demonic runes, and an ancient evil that refuses to stay dead.</span>
-                    </p>
-                </div>
-
-                <div class="card-footer">
-                    <button class="btn-play-card" type="button">
-                        <span>&#9654;</span> STREAM FULL MOVIE
-                    </button>
-                    <span class="stream-status" id="status-jane-doe">[ READY FOR AUTOPSY ]</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Warning Footer -->
-    <div class="mature-disclaimer">
-        <strong>☣️ BIOHAZARD ARCHIVE PROTOCOL:</strong> All video content transmitted through this portal contains uncensored, unrated psychological terror and graphic anatomical violence. Unauthorized viewing by minors is strictly prohibited under penal code 18-U.
-    </div>
-
-</div>
-
-<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-
-<script>
-    // ==========================================
-    // 🟢 AD SETTINGS (Easy to Add/Remove)
-    // ==========================================
-    
-    const RAW_FIXED_FIRST_AD = 'https://www.dropbox.com/scl/fi/dj13x9nvg1lgrsv8prs4o/WARNING.mp4?rlkey=jjmd0jo8qx5r4lokzxteykkb0&st=mkeq612j&dl=0';
-
-    const SEQUENTIAL_ADS_LIBRARY = [
-        'https://htl-cdn.adtng.com/a7/creatives/221/1559/823732/1163176/1163176_video_with_sound.mp4',
-        'https://htl-cdn.adtng.com/a7/creatives/221/1559/821340/1176510/1176510_video_with_sound.mp4',
-        'https://prog-public-ht.project1content.com/b6f/82b/3d6/cfb/433/ba3/83d/ab1/04c/c50/88/video/trailer_1080p.mp4'
-    ];
-
-    const FLOATING_ADS_LIBRARY = [
-        'https://ht-cdn.trafficjunky.net/c6321/video/003/022/121/3022121_video.mp4',
-        'https://ht-cdn.trafficjunky.net/c6321/video/003/070/961/3070961_video.mp4',
-        'https://prog-public-ht.project1content.com/f6e/d10/fa3/15c/4c7/ea8/9a3/ad1/1e8/584/6e/mediabook/mediabook_720p.mp4'
-    ];
-
-    const AD_BREAK_TIMESTAMPS = [15, 45, 75, 105]; 
-    const FLOATING_AD_TIMESTAMPS = [7, 23, 55, 68]; 
-    const SKIP_TIMER_SECONDS = 10;
-
-    // Direct Movie URL
-    const JANE_DOE_MOVIE_URL = 'http://index2.circleftp.net/FILE/English%20%26%20Foreign%20Dubbed%20Movies/2016/The%20Autopsy%20of%20Jane%20Doe%20%282016%291080p%20BluRay%20%5BDual%20Audio%5D%20%5BHin%2BEng%5D%20x264/The%20Autopsy%20of%20Jane%20Doe%20%282016%291080p%20BluRay%20%5BDual%20Audio%5D%20%5BHin%2BEng%5D%20x264.mkv';
-
-    // ==========================================
-    // ⚙️ CORE LOGIC (Safe & Resilient)
-    // ==========================================
-
-    const player = videojs('my-video');
-    const adBanner = document.createElement('div'); adBanner.className = 'vjs-ad-banner'; player.el().appendChild(adBanner);
-    
-    // Skip Button (Completely hidden on initial homepage load)
-    const skipButton = document.createElement('button'); 
-    skipButton.className = 'vjs-skip-button'; 
-    skipButton.innerHTML = 'Override Quarantine &raquo;'; 
-    player.el().appendChild(skipButton);
-
-    const floatingAdContainer = document.createElement('div');
-    floatingAdContainer.className = 'vjs-floating-ad';
-    const floatingVideoElement = document.createElement('video');
-    floatingVideoElement.autoplay = true; floatingVideoElement.muted = true; floatingVideoElement.playsInline = true;
-    const closeFloatingBtn = document.createElement('button'); closeFloatingBtn.className = 'vjs-floating-close'; closeFloatingBtn.innerHTML = '×';
-    
-    closeFloatingBtn.onclick = closeFloatingAdSmoothly;
-    floatingAdContainer.appendChild(closeFloatingBtn); floatingAdContainer.appendChild(floatingVideoElement);
-    player.el().appendChild(floatingAdContainer); 
-
-    let mainMovieSrc = '', pendingAds = [], pendingFloatingAds = [], isPlayingAd = false;
-    let resumeTime = 0, currentAdIndex = 0, currentFloatingAdIndex = 0, floatingAdPlayCount = 0;
-    let currentPosAnim = 'right';
-
-    function formatUrl(url) {
-        if (!url || typeof url !== 'string') return '';
-        let clean = url.trim();
-        if (clean.includes('dropbox.com')) return clean.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', '').replace('?dl=1', '');
-        return clean;
-    }
-
-    function setupNewMovie(source) {
-        if (!source) return;
-        mainMovieSrc = formatUrl(source);
-        pendingAds = [...AD_BREAK_TIMESTAMPS].sort((a, b) => a - b);
-        pendingFloatingAds = [...FLOATING_AD_TIMESTAMPS].sort((a, b) => a - b);
-        currentAdIndex = 0;
-        currentFloatingAdIndex = 0;
-        startAd(true);
-    }
-
-    function startAd(isPreRoll = false) {
-        isPlayingAd = true;
-        floatingAdContainer.style.display = 'none';
-        floatingVideoElement.pause();
-        
-        if (!isPreRoll) resumeTime = player.currentTime();
-        
-        adBanner.style.display = isPreRoll ? 'none' : 'block';
-        skipButton.classList.remove('is-active'); // Strict hide on ad start
-        player.controls(isPreRoll);
-
-        let rawUrl = isPreRoll ? RAW_FIXED_FIRST_AD : SEQUENTIAL_ADS_LIBRARY[currentAdIndex];
-        if (!isPreRoll && SEQUENTIAL_ADS_LIBRARY.length > 0) {
-            currentAdIndex = (currentAdIndex + 1) % SEQUENTIAL_ADS_LIBRARY.length;
-        }
-
-        player.src({ type: 'video/mp4', src: formatUrl(rawUrl) });
-        player.play().catch(() => { console.error("Main Ad failed, skipping..."); returnToMovie(); });
-    }
-
-    function showFloatingAd() {
-        if (!FLOATING_ADS_LIBRARY || FLOATING_ADS_LIBRARY.length === 0) return;
-
-        floatingVideoElement.pause();
-
-        const corners = [
-            { top: '20px', left: '20px', bottom: 'auto', right: 'auto', anim: 'anim-in-left', exit: 'anim-out-left' },
-            { top: '20px', right: '20px', bottom: 'auto', left: 'auto', anim: 'anim-in-right', exit: 'anim-out-right' },
-            { bottom: '60px', left: '20px', top: 'auto', right: 'auto', anim: 'anim-in-left', exit: 'anim-out-left' },
-            { bottom: '60px', right: '20px', top: 'auto', left: 'auto', anim: 'anim-in-right', exit: 'anim-out-right' }
-        ];
-        
-        const pos = corners[Math.floor(Math.random() * corners.length)];
-        currentPosAnim = pos.exit;
-
-        Object.assign(floatingAdContainer.style, { top: pos.top, left: pos.left, bottom: pos.bottom, right: pos.right });
-        floatingAdContainer.className = `vjs-floating-ad ${pos.anim}`;
-        
-        const rawFloatingUrl = FLOATING_ADS_LIBRARY[currentFloatingAdIndex];
-        currentFloatingAdIndex = (currentFloatingAdIndex + 1) % FLOATING_ADS_LIBRARY.length;
-        
-        floatingAdPlayCount = 0; 
-        floatingVideoElement.src = formatUrl(rawFloatingUrl);
-        floatingVideoElement.load();
-        
-        floatingVideoElement.play().then(() => {
-            floatingAdContainer.style.display = 'block';
-        }).catch(e => {
-            console.warn("Floating ad failed to play, moving to next trigger.");
-            floatingAdContainer.style.display = 'none';
-        });
-    }
-
-    floatingVideoElement.addEventListener('ended', () => {
-        floatingAdPlayCount++;
-        if (floatingAdPlayCount < 2) floatingVideoElement.play();
-        else closeFloatingAdSmoothly();
-    });
-
-    function closeFloatingAdSmoothly() {
-        floatingAdContainer.classList.add(currentPosAnim);
-        setTimeout(() => {
-            floatingAdContainer.style.display = 'none';
-            floatingVideoElement.pause();
-            floatingAdContainer.classList.remove('anim-in-left', 'anim-in-right', 'anim-out-left', 'anim-out-right');
-        }, 480);
-    }
-
-    function returnToMovie() {
-        isPlayingAd = false; 
-        adBanner.style.display = 'none'; 
-        skipButton.classList.remove('is-active'); // Ensure hidden upon returning to movie
-        player.controls(true); 
-
-        const lower = mainMovieSrc.toLowerCase();
-        let mime = 'video/mp4';
-        if (lower.includes('.mkv')) mime = 'video/x-matroska';
-        else if (lower.includes('.webm')) mime = 'video/webm';
-
-        player.src({ type: mime, src: mainMovieSrc });
-        player.one('loadedmetadata', () => { 
-            player.currentTime(resumeTime); 
-            player.play().catch(e => console.warn("Player trigger caught:", e)); 
-        });
-    }
-
-    player.on('timeupdate', function() {
-        if (!mainMovieSrc) return;
-        const currentTime = Math.floor(player.currentTime());
-        if (!isPlayingAd) {
-            if (pendingAds.length > 0 && currentTime >= pendingAds[0]) { pendingAds.shift(); startAd(false); }
-            if (pendingFloatingAds.length > 0 && currentTime >= pendingFloatingAds[0]) { pendingFloatingAds.shift(); showFloatingAd(); }
-        } else if (adBanner.style.display === 'block') {
-            const timeLeft = Math.ceil(player.duration() - player.currentTime());
-            adBanner.innerHTML = `⚠️ QUARANTINE INTERRUPT &bull; RESUMING AUTOPSY IN ${timeLeft > 0 ? timeLeft : 0}s`;
-            
-            // Only show button after SKIP_TIMER_SECONDS during an active ad
-            if (player.currentTime() >= SKIP_TIMER_SECONDS) {
-                skipButton.classList.add('is-active');
-            }
-        }
-    });
-
-    // Movie Card Trigger Function
-    function playJaneDoeMovie() {
-        const card = document.getElementById('card-jane-doe');
-        const status = document.getElementById('status-jane-doe');
-        const input = document.getElementById('online-url');
-
-        input.value = JANE_DOE_MOVIE_URL;
-        card.classList.add('is-active');
-        status.innerHTML = '🔴 AUTOPSY UNDERWAY';
-
-        document.querySelector('.video-player-wrapper').scrollIntoView({ behavior: 'smooth' });
-        setupNewMovie(JANE_DOE_MOVIE_URL);
-    }
-
-    document.getElementById('load-url').addEventListener('click', () => setupNewMovie(document.getElementById('online-url').value));
-    document.getElementById('video-upload').addEventListener('change', (e) => { if (e.target.files[0]) setupNewMovie(URL.createObjectURL(e.target.files[0])); });
-    skipButton.onclick = returnToMovie;
-    player.on('ended', () => { if (isPlayingAd) returnToMovie(); });
-</script>
-
-</body>
-</html>
+            background: linear-gradient(135deg, #ff002b, #8a0014); color: #ffffff;
+            border: 1px solid #ff4d
