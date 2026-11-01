@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☠️ MORGUE ARCHIVE // EXTREME 18+ HORROR</title>
+    <title>☠️ EXTREME HORROR MOVIES // Unrated 18+ Vault</title>
     
     <!-- Video.js CSS -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet" />
 
-    <!-- Google Fonts: Nosifer (Dripping Blood), Creepster, Share Tech Mono (Morgue Terminal), Cinzel -->
+    <!-- Google Fonts: Nosifer (Dripping Blood), Creepster, Share Tech Mono, Cinzel -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Creepster&family=Nosifer&family=Share+Tech+Mono&family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -25,9 +25,7 @@
             --glow-red: 0 0 15px rgba(255, 0, 43, 0.7);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
@@ -42,687 +40,179 @@
             overflow-x: hidden;
         }
 
-        /* Top Hazard Tape Ribbon */
         .hazard-caution-bar {
-            width: 100%;
-            height: 10px;
-            background: repeating-linear-gradient(
-                -45deg,
-                #000,
-                #000 15px,
-                #9e0b16 15px,
-                #9e0b16 30px
-            );
+            width: 100%; height: 10px;
+            background: repeating-linear-gradient(-45deg, #000, #000 15px, #9e0b16 15px, #9e0b16 30px);
             border-bottom: 1px solid var(--blood-pure);
             margin-bottom: 25px;
             box-shadow: 0 0 15px rgba(255, 0, 43, 0.5);
         }
 
-        .container { 
-            max-width: 980px; 
-            margin: 0 auto; 
-            position: relative;
-            z-index: 2;
-        }
+        .container { max-width: 980px; margin: 0 auto; position: relative; z-index: 2; }
 
-        /* EXTREME HORROR HEADER */
-        .horror-header {
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
+        .horror-header { text-align: center; margin-bottom: 30px; position: relative; }
 
         .quarantine-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #1f0105;
-            color: #ff334b;
-            border: 1px solid #ff002b;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 2px;
-            padding: 6px 18px;
-            border-radius: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(255, 0, 43, 0.4), inset 0 0 8px rgba(255, 0, 43, 0.2);
-            animation: pulse-border 2s infinite ease-in-out;
-            margin-bottom: 12px;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #1f0105; color: #ff334b; border: 1px solid #ff002b;
+            font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 2px;
+            padding: 6px 18px; border-radius: 2px; text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(255, 0, 43, 0.4); margin-bottom: 12px;
         }
 
-        @keyframes pulse-border {
-            0%, 100% { border-color: #ff002b; box-shadow: 0 0 15px rgba(255, 0, 43, 0.4); }
-            50% { border-color: #6b000d; box-shadow: 0 0 5px rgba(107, 0, 13, 0.2); }
-        }
-
-        /* Dripping Blood Main Title */
         .portal-title {
-            font-family: 'Nosifer', cursive;
-            font-size: clamp(24px, 5vw, 42px);
-            color: #ff0a33;
-            text-shadow: 0 0 15px #ff002b, 0 0 35px #990014, 0 0 60px #5e000c;
-            margin: 10px 0 12px 0;
-            letter-spacing: 2px;
+            font-family: 'Nosifer', cursive; font-size: clamp(22px, 5vw, 40px);
+            color: #ff0a33; text-shadow: 0 0 15px #ff002b, 0 0 35px #990014, 0 0 60px #5e000c;
+            margin: 10px 0 12px 0; letter-spacing: 2px; text-transform: uppercase;
         }
 
         .portal-subtitle {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 13px;
-            color: #a87d84;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin: 0;
+            font-family: 'Share Tech Mono', monospace; font-size: 13px; color: #a87d84;
+            letter-spacing: 2px; text-transform: uppercase; margin: 0;
         }
 
-        /* Extreme 18+ Warning Banner */
         .extreme-warning-alert {
             background: linear-gradient(90deg, rgba(60, 0, 8, 0.95), rgba(130, 8, 20, 0.95), rgba(60, 0, 8, 0.95));
-            border: 1.5px solid #ff1a35;
-            border-radius: 6px;
-            padding: 12px 18px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 0 25px rgba(255, 0, 43, 0.35);
+            border: 1.5px solid #ff1a35; border-radius: 6px; padding: 12px 18px; margin-bottom: 25px;
+            display: flex; align-items: center; gap: 15px; box-shadow: 0 0 25px rgba(255, 0, 43, 0.35);
         }
 
-        .warning-icon {
-            font-size: 28px;
-            animation: flicker 1.8s infinite;
-        }
+        .warning-icon { font-size: 28px; }
+        .warning-text { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: #ffccd1; line-height: 1.5; }
+        .warning-text strong { color: #ffffff; text-decoration: underline; }
 
-        .warning-text {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 12px;
-            color: #ffccd1;
-            line-height: 1.5;
-            letter-spacing: 0.5px;
-        }
-
-        .warning-text strong {
-            color: #ffffff;
-            font-weight: 900;
-            text-decoration: underline;
-        }
-
-        /* Morgue Console Controls */
         .controls { 
-            background: rgba(14, 6, 9, 0.92); 
-            padding: 22px; 
-            border-radius: 8px; 
-            margin-bottom: 25px; 
-            border: 1px solid #520f18;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(200, 0, 30, 0.15); 
-            position: relative;
+            background: rgba(14, 6, 9, 0.92); padding: 22px; border-radius: 8px; margin-bottom: 25px; 
+            border: 1px solid #520f18; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9); position: relative;
         }
 
         .controls::before {
             content: "DEEP TERMINAL INPUT // ENCRYPTED STREAM";
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            background: #140407;
-            padding: 2px 10px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 10px;
-            color: #ff334b;
-            border: 1px solid #700f1c;
-            border-radius: 3px;
+            position: absolute; top: -10px; left: 20px; background: #140407;
+            padding: 2px 10px; font-family: 'Share Tech Mono', monospace; font-size: 10px;
+            color: #ff334b; border: 1px solid #700f1c; border-radius: 3px;
         }
 
-        .input-group { 
-            margin-bottom: 16px; 
-            display: flex; 
-            gap: 12px; 
-        }
+        .input-group { margin-bottom: 16px; display: flex; gap: 12px; }
 
         input[type="text"] { 
-            flex-grow: 1; 
-            padding: 14px 18px; 
-            background: #080204;
-            color: #ffe6e8;
-            border: 1px solid #5e131d; 
-            border-radius: 4px; 
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 13px;
-            outline: none;
-            transition: all 0.3s ease;
+            flex-grow: 1; padding: 14px 18px; background: #080204; color: #ffe6e8;
+            border: 1px solid #5e131d; border-radius: 4px; font-family: 'Share Tech Mono', monospace;
+            font-size: 13px; outline: none; transition: all 0.3s ease;
         }
-
-        input[type="text"]::placeholder {
-            color: #573338;
-        }
-
-        input[type="text"]:focus {
-            border-color: #ff002b;
-            box-shadow: 0 0 18px rgba(255, 0, 43, 0.6);
-            background: #0f0306;
-        }
+        input[type="text"]:focus { border-color: #ff002b; box-shadow: 0 0 18px rgba(255, 0, 43, 0.6); }
 
         button#load-url { 
-            padding: 14px 28px; 
-            cursor: pointer; 
-            background: linear-gradient(135deg, #c9001e, #57000c); 
-            color: #ffffff; 
-            border: 1px solid #ff1a38; 
-            border-radius: 4px; 
-            font-family: 'Cinzel', serif;
-            font-weight: 900; 
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(200, 0, 30, 0.6);
+            padding: 14px 28px; cursor: pointer; background: linear-gradient(135deg, #c9001e, #57000c); 
+            color: #ffffff; border: 1px solid #ff1a38; border-radius: 4px; font-family: 'Cinzel', serif;
+            font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s ease;
             white-space: nowrap;
         }
+        button#load-url:hover { background: linear-gradient(135deg, #ff052e, #850013); transform: scale(1.02); }
 
-        button#load-url:hover {
-            background: linear-gradient(135deg, #ff052e, #850013);
-            box-shadow: 0 0 35px rgba(255, 0, 43, 0.95);
-            transform: scale(1.02);
-        }
-
-        /* File Upload */
-        input[type="file"] {
-            color: #8c6e73;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 12px;
-        }
-
+        input[type="file"] { color: #8c6e73; font-family: 'Share Tech Mono', monospace; font-size: 12px; }
         input[type="file"]::-webkit-file-upload-button {
-            background: #24050a;
-            color: #ff6677;
-            border: 1px solid #851320;
-            padding: 8px 18px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            margin-right: 12px;
+            background: #24050a; color: #ff6677; border: 1px solid #851320; padding: 8px 18px;
+            border-radius: 4px; cursor: pointer; font-family: 'Share Tech Mono', monospace; font-size: 11px;
+            text-transform: uppercase; margin-right: 12px;
         }
 
-        input[type="file"]::-webkit-file-upload-button:hover {
-            background: #520914;
-            border-color: #ff002b;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(255, 0, 43, 0.6);
-        }
-
-        /* Video Player Frame with Heartbeat Blood Pulse */
         .video-player-wrapper {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid #ff002b;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 40px rgba(255, 0, 43, 0.35);
+            position: relative; border-radius: 10px; overflow: hidden;
+            border: 2px solid #ff002b; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 40px rgba(255, 0, 43, 0.35);
             background-color: #000;
-            animation: blood-pulse 3s infinite ease-in-out;
         }
 
-        @keyframes blood-pulse {
-            0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 25px rgba(255, 0, 43, 0.25); }
-            50% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 50px rgba(255, 0, 43, 0.65); border-color: #ff3352; }
-        }
+        .video-js { width: 100%; height: 530px; border-radius: 8px; overflow: hidden; background-color: #000; }
 
-        .video-js { 
-            width: 100%; 
-            height: 530px; 
-            border-radius: 6px; 
-            overflow: hidden; 
-            background-color: #000; 
-        }
-
-        /* Horror Ad Banner (Red Emergency Broadcast) */
-        .vjs-ad-banner { 
-            display: none; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            background: linear-gradient(90deg, rgba(40, 2, 7, 0.98) 0%, rgba(160, 10, 25, 0.98) 50%, rgba(40, 2, 7, 0.98) 100%); 
-            color: #ffffff; 
-            padding: 14px; 
-            text-align: center; 
-            font-family: 'Share Tech Mono', monospace;
-            font-weight: 700; 
-            font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-bottom: 2px solid #ff002b;
-            box-shadow: 0 5px 25px rgba(255, 0, 43, 0.7);
-            z-index: 10; 
-        }
-
-        /* Horror Skip Button */
-        .vjs-skip-button { 
-            display: none; 
-            position: absolute; 
-            bottom: 80px; 
-            right: 25px; 
-            background: rgba(25, 2, 5, 0.95); 
-            color: #ff667a; 
-            border: 1.5px solid #ff002b; 
-            padding: 12px 26px; 
-            cursor: pointer; 
-            z-index: 11; 
-            border-radius: 4px; 
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 0 25px rgba(255, 0, 43, 0.6);
-            transition: all 0.3s ease;
-        }
-
-        .vjs-skip-button:hover {
-            background: #a30018;
-            color: #ffffff;
-            box-shadow: 0 0 40px rgba(255, 0, 43, 1);
-            transform: scale(1.04);
-        }
-
-        /* Horror Floating Ad Container */
-        .vjs-floating-ad {
-            display: none; 
-            position: absolute;
-            width: 240px;
-            background: #0a0305;
-            border: 1.5px solid #ff002b;
-            box-shadow: 0 0 30px rgba(255, 0, 43, 0.6), 0 10px 40px rgba(0,0,0,0.95);
-            z-index: 20; 
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        @media screen and (max-width: 600px) { 
-            .vjs-floating-ad { width: 160px; } 
-            .video-js { height: 320px; }
-            .input-group { flex-direction: column; }
-        }
-
-        .vjs-floating-ad video { 
-            width: 100%; 
-            display: block; 
-            pointer-events: none; 
-        }
-
-        .vjs-floating-close { 
-            position: absolute; 
-            top: 0; 
-            right: 0; 
-            background: rgba(160, 0, 25, 0.95); 
-            color: #ffffff; 
-            border: 1px solid #ff3352; 
-            padding: 6px 14px; 
-            cursor: pointer; 
-            z-index: 21; 
-            font-weight: 900; 
-            font-size: 15px;
-            transition: all 0.2s;
-        }
-
-        .vjs-floating-close:hover {
-            background: #ff002b;
-            box-shadow: 0 0 15px #ff002b;
-        }
-
-        /* Video.js Darkroom Overrides */
-        .vjs-theme-fantasy .vjs-control-bar {
-            background: linear-gradient(0deg, rgba(8, 2, 4, 0.98), rgba(20, 2, 6, 0.7), transparent) !important;
-        }
-        .vjs-theme-fantasy .vjs-play-progress {
-            background-color: #ff002b !important;
-            box-shadow: 0 0 15px #ff002b !important;
-        }
-        .vjs-theme-fantasy .vjs-play-progress:before {
-            color: #ff002b !important;
-            text-shadow: 0 0 10px #ff002b !important;
-        }
-        .vjs-theme-fantasy .vjs-slider {
-            background-color: rgba(60, 10, 18, 0.8) !important;
-        }
-        .vjs-theme-fantasy .vjs-volume-level {
-            background-color: #ff002b !important;
-        }
+        /* Centered Big Play Button */
         .video-js .vjs-big-play-button {
-            border: 2px solid #ff002b !important;
-            background-color: rgba(50, 2, 8, 0.9) !important;
-            box-shadow: 0 0 35px rgba(255, 0, 43, 0.8) !important;
-            color: #ff3352 !important;
-            border-radius: 6px !important;
+            width: 86px !important; height: 86px !important; line-height: 82px !important;
+            top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important;
+            margin: 0 !important; border-radius: 50% !important; border: 2px solid #ff002b !important;
+            background: radial-gradient(circle at 40% 35%, rgba(220, 0, 35, 0.88) 0%, rgba(45, 2, 7, 0.96) 80%) !important;
+            box-shadow: 0 0 30px rgba(255, 0, 43, 0.7) !important; color: #ffffff !important;
+            transition: all 0.35s ease !important; cursor: pointer !important;
         }
-        .video-js:hover .vjs-big-play-button {
-            background-color: #b8001a !important;
-            color: #fff !important;
-            box-shadow: 0 0 55px rgba(255, 0, 43, 1) !important;
+        .video-js:hover .vjs-big-play-button { transform: translate(-50%, -50%) scale(1.12) !important; }
+
+        .video-js .vjs-skip-button { 
+            display: none !important; opacity: 0 !important; visibility: hidden !important;
+            position: absolute; bottom: 80px; right: 25px; background: rgba(25, 2, 5, 0.95); 
+            color: #ff667a; border: 1.5px solid #ff002b; padding: 12px 26px; cursor: pointer; 
+            z-index: 11; border-radius: 4px; font-family: 'Cinzel', serif; font-weight: 900;
+            text-transform: uppercase;
+        }
+        .video-js .vjs-skip-button.is-active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
+
+        .vjs-ad-banner { 
+            display: none; position: absolute; top: 0; left: 0; width: 100%; 
+            background: linear-gradient(90deg, rgba(40, 2, 7, 0.98), rgba(160, 10, 25, 0.98), rgba(40, 2, 7, 0.98)); 
+            color: #ffffff; padding: 14px; text-align: center; font-family: 'Share Tech Mono', monospace;
+            font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+            border-bottom: 2px solid #ff002b; z-index: 10; 
         }
 
-        /* =========================================================
-           💀 EXTREME HORROR MOVIE CARD (WITH PROMINENT THUMBNAIL)
-           ========================================================= */
-        .archive-section {
-            margin-top: 40px;
+        .mixed-content-banner {
+            display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 90%; max-width: 580px; background: rgba(26, 4, 8, 0.98); border: 2px solid #ff002b;
+            padding: 22px; border-radius: 8px; z-index: 30; font-family: 'Share Tech Mono', monospace;
         }
+        .mixed-content-banner h3 { color: #ff1a38; margin: 0 0 10px 0; font-size: 15px; }
+        .mixed-content-banner p { font-size: 12px; color: #e6ccd0; line-height: 1.5; margin: 0 0 12px 0; }
+        .mixed-content-banner .step-list { background: rgba(10, 2, 4, 0.9); padding: 12px 16px; border-radius: 4px; border: 1px solid #570e17; font-size: 12px; }
+        .mixed-content-banner .btn-close-alert { margin-top: 12px; background: #ff002b; color: #fff; border: none; padding: 7px 18px; border-radius: 4px; cursor: pointer; }
 
-        .archive-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #ff002b;
-            padding-bottom: 12px;
+        .vjs-floating-ad {
+            display: none; position: absolute; width: 240px; background: #0a0305; border: 1.5px solid #ff002b;
+            box-shadow: 0 0 30px rgba(255, 0, 43, 0.6); z-index: 20; border-radius: 6px; overflow: hidden;
         }
+        .vjs-floating-ad video { width: 100%; display: block; pointer-events: none; }
+        .vjs-floating-close { position: absolute; top: 0; right: 0; background: rgba(160, 0, 25, 0.95); color: #fff; border: 1px solid #ff3352; padding: 6px 14px; cursor: pointer; z-index: 21; font-weight: 900; }
 
-        .archive-title {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 12px rgba(255, 0, 43, 0.8);
-        }
+        .vjs-theme-fantasy .vjs-control-bar { background: linear-gradient(0deg, rgba(8, 2, 4, 0.98), rgba(20, 2, 6, 0.7), transparent) !important; }
+        .vjs-theme-fantasy .vjs-play-progress { background-color: #ff002b !important; }
+        .vjs-theme-fantasy .vjs-volume-level { background-color: #ff002b !important; }
 
-        .archive-tag {
-            font-size: 11px;
-            font-family: 'Share Tech Mono', monospace;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: #ff002b;
-            background: rgba(50, 0, 8, 0.85);
-            padding: 5px 12px;
-            border-radius: 3px;
-            border: 1px solid #ff002b;
-            box-shadow: 0 0 10px rgba(255, 0, 43, 0.4);
-        }
+        .archive-section { margin-top: 40px; }
+        .archive-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid #ff002b; padding-bottom: 12px; }
+        .archive-title { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 900; color: #ffffff; letter-spacing: 2px; margin: 0; }
+        .archive-tag { font-size: 11px; font-family: 'Share Tech Mono', monospace; font-weight: 700; color: #ff002b; background: rgba(50, 0, 8, 0.85); padding: 5px 12px; border-radius: 3px; border: 1px solid #ff002b; }
 
-        /* Movie Card Body */
         .movie-card {
-            display: flex;
-            gap: 25px;
-            background: rgba(14, 5, 8, 0.95);
-            border: 1.5px solid #570e17;
-            border-radius: 8px;
-            overflow: hidden;
-            padding: 22px;
-            cursor: pointer;
-            transition: all 0.35s ease;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(180, 0, 30, 0.15);
-            position: relative;
+            display: flex; gap: 25px; background: rgba(14, 5, 8, 0.95); border: 1.5px solid #570e17;
+            border-radius: 8px; overflow: hidden; padding: 22px; cursor: pointer; transition: all 0.35s ease;
         }
+        .movie-card:hover { border-color: #ff002b; transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.98); }
 
-        .movie-card:hover {
-            border-color: #ff002b;
-            transform: translateY(-4px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.98), 0 0 45px rgba(255, 0, 43, 0.5);
-            background: rgba(22, 6, 11, 0.98);
-        }
+        .card-thumb-frame { width: 190px; height: 275px; flex-shrink: 0; position: relative; border-radius: 6px; overflow: hidden; background: #1f0307; border: 2px solid #85121f; }
+        .movie-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hazard-ribbon { position: absolute; top: 10px; left: -32px; background: #d00000; color: #ffffff; font-family: 'Share Tech Mono', monospace; font-size: 9px; font-weight: 900; padding: 4px 34px; transform: rotate(-45deg); }
+        .thumb-toe-tag { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(0deg, rgba(10, 1, 3, 0.95), transparent); padding: 10px 8px 6px; font-family: 'Share Tech Mono', monospace; font-size: 9px; color: #ff8595; }
+        .card-play-overlay { position: absolute; inset: 0; background: rgba(20, 2, 5, 0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .movie-card:hover .card-play-overlay { opacity: 1; }
+        .play-icon { width: 52px; height: 52px; border-radius: 50%; background: #ff002b; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; padding-left: 4px; box-shadow: 0 0 30px #ff002b; }
 
-        .movie-card.is-active {
-            border-color: #ff002b;
-            box-shadow: 0 0 40px rgba(255, 0, 43, 0.85), inset 0 0 20px rgba(255, 0, 43, 0.3);
-        }
+        .movie-details { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .movie-meta-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .tag-extreme { background: #ff002b; color: #ffffff; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 3px; }
+        .tag-biohazard { background: rgba(50, 5, 10, 0.85); color: #ff8090; border: 1px solid #9e1322; font-family: 'Share Tech Mono', monospace; font-size: 11px; padding: 4px 10px; border-radius: 3px; }
+        .tag-rating { background: rgba(40, 15, 0, 0.85); color: #ffb703; border: 1px solid #996e00; font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 3px; }
 
-        /* Prominent Thumbnail Container */
-        .card-thumb-frame {
-            width: 190px;
-            height: 275px;
-            flex-shrink: 0;
-            position: relative;
-            border-radius: 6px;
-            overflow: hidden;
-            background: #1f0307;
-            border: 2px solid #85121f;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 43, 0.25);
-        }
+        .movie-title { font-family: 'Creepster', cursive; font-size: 32px; color: #ffffff; letter-spacing: 2px; margin: 0 0 10px 0; }
+        .movie-synopsis { font-size: 13px; color: #b0999d; line-height: 1.6; margin: 0 0 15px 0; }
+        .synopsis-highlight { color: #ff667a; font-weight: 600; }
 
-        .movie-thumb-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.45s ease, filter 0.45s ease;
-            filter: contrast(110%) brightness(95%);
-        }
-
-        .movie-card:hover .movie-thumb-img {
-            transform: scale(1.08);
-            filter: contrast(120%) brightness(105%);
-        }
-
-        /* Corner Hazard Tape Badge */
-        .hazard-ribbon {
-            position: absolute;
-            top: 10px;
-            left: -32px;
-            background: #d00000;
-            color: #ffffff;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 9px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            padding: 4px 34px;
-            transform: rotate(-45deg);
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
-            border-bottom: 1px solid #ff4d64;
-        }
-
-        /* Morgue Toe-Tag Overlay at Bottom of Thumbnail */
-        .thumb-toe-tag {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(0deg, rgba(10, 1, 3, 0.95) 0%, rgba(10, 1, 3, 0.7) 70%, transparent 100%);
-            padding: 10px 8px 6px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 9px;
-            color: #ff8595;
-            text-shadow: 0 0 5px #ff002b;
-            line-height: 1.3;
-        }
-
-        /* Card Overlay Play Button */
-        .card-play-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(20, 2, 5, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .movie-card:hover .card-play-overlay {
-            opacity: 1;
-        }
-
-        .play-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: #ff002b;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            padding-left: 4px;
-            box-shadow: 0 0 30px #ff002b;
-        }
-
-        /* Details */
-        .movie-details {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .movie-meta-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .tag-extreme {
-            background: #ff002b;
-            color: #ffffff;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            font-weight: 900;
-            padding: 4px 10px;
-            border-radius: 3px;
-            letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(255, 0, 43, 0.6);
-        }
-
-        .tag-biohazard {
-            background: rgba(50, 5, 10, 0.85);
-            color: #ff8090;
-            border: 1px solid #9e1322;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 3px;
-        }
-
-        .tag-rating {
-            background: rgba(40, 15, 0, 0.85);
-            color: #ffb703;
-            border: 1px solid #996e00;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 3px;
-        }
-
-        .movie-title {
-            font-family: 'Creepster', cursive;
-            font-size: 32px;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin: 0 0 10px 0;
-            transition: color 0.3s;
-            text-shadow: 0 0 10px rgba(255, 0, 43, 0.4);
-        }
-
-        .movie-card:hover .movie-title {
-            color: #ff1a38;
-            text-shadow: 0 0 20px #ff002b, 0 0 40px #800010;
-        }
-
-        .movie-synopsis {
-            font-size: 13px;
-            color: #b0999d;
-            line-height: 1.6;
-            margin: 0 0 15px 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .synopsis-highlight {
-            color: #ff667a;
-            font-weight: 600;
-        }
-
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-            flex-wrap: wrap;
-            gap: 14px;
-            border-top: 1px solid #3d0a11;
-            padding-top: 14px;
-        }
-
+        .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; border-top: 1px solid #3d0a11; padding-top: 14px; }
         .btn-play-card {
-            background: linear-gradient(135deg, #ff002b, #8a0014);
-            color: #ffffff;
-            border: 1px solid #ff4d64;
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            font-size: 13px;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(255, 0, 43, 0.6);
+            background: linear-gradient(135deg, #ff002b, #8a0014); color: #ffffff; border: 1px solid #ff4d64;
+            padding: 12px 24px; border-radius: 4px; font-family: 'Cinzel', serif; font-weight: 900; font-size: 13px;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 10px;
         }
+        .stream-status { font-size: 12px; color: #ff8595; font-family: 'Share Tech Mono', monospace; }
 
-        .movie-card:hover .btn-play-card {
-            background: linear-gradient(135deg, #ff1a3b, #bd001b);
-            box-shadow: 0 0 35px rgba(255, 0, 43, 0.95);
-            transform: scale(1.03);
-        }
-
-        .stream-status {
-            font-size: 12px;
-            color: #ff8595;
-            font-family: 'Share Tech Mono', monospace;
-            letter-spacing: 1.5px;
-        }
-
-        @media screen and (max-width: 700px) {
-            .movie-card {
-                flex-direction: column;
-                align-items: center;
-            }
-            .card-thumb-frame {
-                width: 100%;
-                max-width: 260px;
-                height: 360px;
-            }
-            .card-footer {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .btn-play-card {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        /* Bottom Disclaimer */
-        .mature-disclaimer {
-            margin-top: 35px;
-            padding: 16px 20px;
-            background: rgba(20, 3, 6, 0.85);
-            border-left: 4px solid #ff002b;
-            border-radius: 4px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 12px;
-            color: #ba999e;
-            line-height: 1.6;
-        }
-
-        .mature-disclaimer strong {
-            color: #ff002b;
-        }
-
-        /* Animations */
-        .anim-in-left { animation: slideInL 0.5s ease-out forwards; }
-        .anim-in-right { animation: slideInR 0.5s ease-out forwards; }
-        .anim-out-left { animation: slideOutL 0.5s ease-in forwards; }
-        .anim-out-right { animation: slideOutR 0.5s ease-in forwards; }
-
-        @keyframes slideInL { from { transform: translateX(-130%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideInR { from { transform: translateX(130%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOutL { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-130%); opacity: 0; } }
-        @keyframes slideOutR { from { transform: translateX(0); opacity: 1; } to { transform: translateX(130%); opacity: 0; } }
+        .mature-disclaimer { margin-top: 35px; padding: 16px 20px; background: rgba(20, 3, 6, 0.85); border-left: 4px solid #ff002b; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 12px; color: #ba999e; }
+        .mature-disclaimer strong { color: #ff002b; }
     </style>
 </head>
 <body>
@@ -730,28 +220,24 @@
 <div class="hazard-caution-bar"></div>
 
 <div class="container">
-    
-    <!-- EXTREME HORROR HEADER -->
     <div class="horror-header">
         <div class="quarantine-tag">
             <span>&#9760;</span> LEVEL IV BIOHAZARD &bull; ADULTS ONLY 18+ UNCENSORED <span>&#9760;</span>
         </div>
-        <h1 class="portal-title">MORGUE ARCHIVE</h1>
+        <h1 class="portal-title">EXTREME HORROR MOVIES</h1>
         <p class="portal-subtitle">[ RESTRICTED ACCESS &bull; AUTOPSY TAPES &bull; UNRATED HORROR REEL ]</p>
     </div>
 
-    <!-- EXTREME WARNING ADVISORY -->
     <div class="extreme-warning-alert">
         <div class="warning-icon">☣️</div>
         <div class="warning-text">
-            <strong>ADULT WARNING (NC-17 / 18+):</strong> This portal contains intense visceral terror, graphic autopsy footage, and extreme psychological dread. Strict age restriction enforced. <strong>Do not proceed if faint of heart.</strong>
+            <strong>ADULT WARNING (NC-17 / 18+):</strong> This portal contains intense visceral terror and extreme psychological dread. Strict age restriction enforced.
         </div>
     </div>
 
-    <!-- TERMINAL INPUT CONTROLS -->
     <div class="controls">
         <div class="input-group">
-            <input type="text" id="online-url" placeholder="Paste Direct Stream URL (MKV, MP4, WebM, Dropbox)...">
+            <input type="text" id="online-url" placeholder="Paste Direct MP4 URL or Dropbox Link...">
             <button id="load-url">Initiate Autopsy</button>
         </div>
         <div class="file-upload-wrapper">
@@ -759,42 +245,40 @@
         </div>
     </div>
 
-    <!-- VIDEO PLAYER WRAPPER -->
     <div class="video-player-wrapper">
         <video id="my-video" class="video-js vjs-theme-fantasy" controls preload="auto"></video>
+        
+        <div class="mixed-content-banner" id="mixed-content-alert">
+            <h3>⚠️ INSECURE STREAM BLOCKED (HTTP ON HTTPS)</h3>
+            <p>Your live site is on <strong>HTTPS</strong>, but this video uses <strong>HTTP</strong>. Browsers block HTTP media on HTTPS sites.</p>
+            <div class="step-list">
+                1. Click the <strong>Padlock / Settings icon (🔒)</strong> in your address bar.<br>
+                2. Click <strong>Site settings</strong>.<br>
+                3. Set <strong>"Insecure content"</strong> to <strong>Allow</strong>.<br>
+                4. Refresh the page!
+            </div>
+            <button class="btn-close-alert" onclick="document.getElementById('mixed-content-alert').style.display='none'">Dismiss</button>
+        </div>
     </div>
 
-    <!-- 💀 FEATURED HORROR ARCHIVE SECTION -->
     <div class="archive-section">
         <div class="archive-header">
             <h2 class="archive-title"><span>☠️</span> UNSEALED MORGUE CASE FILE</h2>
             <span class="archive-tag">18+ RESTRICTED GORE</span>
         </div>
 
-        <!-- Movie Card with High-Res Thumbnail -->
         <div class="movie-card" id="card-jane-doe" onclick="playJaneDoeMovie()">
-            
-            <!-- THUMBNAIL WITH TOE-TAG & CAUTION RIBBON -->
             <div class="card-thumb-frame">
                 <img src="https://upload.wikimedia.org/wikipedia/en/4/47/The_Autopsy_of_Jane_Doe.jpeg" 
                      alt="The Autopsy of Jane Doe (2016) Official Poster"
                      class="movie-thumb-img"
                      referrerpolicy="no-referrer"
                      onerror="if(this.src!=='https://image.tmdb.org/t/p/w500/2pOd80PQSJ9cUbli7PDeX59q3vQ.jpg'){this.src='https://image.tmdb.org/t/p/w500/2pOd80PQSJ9cUbli7PDeX59q3vQ.jpg';}">
-                
                 <span class="hazard-ribbon">18+ EXTREME</span>
-                
-                <div class="thumb-toe-tag">
-                    CORONER ID: #397250<br>
-                    SPECIMEN: JANE DOE
-                </div>
-
-                <div class="card-play-overlay">
-                    <span class="play-icon">&#9658;</span>
-                </div>
+                <div class="thumb-toe-tag">CORONER ID: #397250<br>SPECIMEN: JANE DOE</div>
+                <div class="card-play-overlay"><span class="play-icon">&#9658;</span></div>
             </div>
 
-            <!-- MOVIE DETAILS -->
             <div class="movie-details">
                 <div>
                     <div class="movie-meta-tags">
@@ -803,66 +287,60 @@
                         <span class="tag-biohazard">1080p BLURAY</span>
                         <span class="tag-rating">&#9733; 6.8 / 10 IMDb</span>
                     </div>
-
                     <h3 class="movie-title">The Autopsy of Jane Doe (2016)</h3>
-                    
                     <p class="movie-synopsis">
-                        When an unblemished, unidentified corpse of a young woman arrives at a subterranean morgue at midnight, seasoned coroners Tommy and Austin begin an emergency post-mortem. <span class="synopsis-highlight">As they cut deeper into her pristine flesh, they uncover horrific internal mutilations, carved demonic runes, and an ancient evil that refuses to stay dead.</span>
+                        When an unblemished, unidentified corpse of a young woman arrives at a subterranean morgue at midnight, seasoned coroners Tommy and Austin begin an emergency post-mortem. <span class="synopsis-highlight">As they cut deeper into her pristine flesh, they uncover horrific internal mutilations and an ancient evil that refuses to stay dead.</span>
                     </p>
                 </div>
 
                 <div class="card-footer">
-                    <button class="btn-play-card" type="button">
-                        <span>&#9654;</span> STREAM FULL MOVIE
-                    </button>
+                    <button class="btn-play-card" type="button"><span>&#9654;</span> STREAM FULL MOVIE</button>
                     <span class="stream-status" id="status-jane-doe">[ READY FOR AUTOPSY ]</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Warning Footer -->
     <div class="mature-disclaimer">
-        <strong>☣️ BIOHAZARD ARCHIVE PROTOCOL:</strong> All video content transmitted through this portal contains uncensored, unrated psychological terror and graphic anatomical violence. Unauthorized viewing by minors is strictly prohibited under penal code 18-U.
+        <strong>☣️ BIOHAZARD ARCHIVE PROTOCOL:</strong> All video content transmitted through this portal contains uncensored, unrated psychological terror. Unauthorized viewing by minors is strictly prohibited under penal code 18-U.
     </div>
-
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
 <script>
     // ==========================================
-    // 🟢 AD SETTINGS (Easy to Add/Remove)
+    // 🟢 AD SETTINGS
     // ==========================================
-    
     const RAW_FIXED_FIRST_AD = 'https://www.dropbox.com/scl/fi/dj13x9nvg1lgrsv8prs4o/WARNING.mp4?rlkey=jjmd0jo8qx5r4lokzxteykkb0&st=mkeq612j&dl=0';
 
     const SEQUENTIAL_ADS_LIBRARY = [
         'https://htl-cdn.adtng.com/a7/creatives/221/1559/823732/1163176/1163176_video_with_sound.mp4',
-        'https://htl-cdn.adtng.com/a7/creatives/221/1559/821340/1176510/1176510_video_with_sound.mp4',
-        'https://prog-public-ht.project1content.com/b6f/82b/3d6/cfb/433/ba3/83d/ab1/04c/c50/88/video/trailer_1080p.mp4'
+        'https://htl-cdn.adtng.com/a7/creatives/221/1559/821340/1176510/1176510_video_with_sound.mp4'
     ];
 
     const FLOATING_ADS_LIBRARY = [
         'https://ht-cdn.trafficjunky.net/c6321/video/003/022/121/3022121_video.mp4',
-        'https://ht-cdn.trafficjunky.net/c6321/video/003/070/961/3070961_video.mp4',
-        'https://prog-public-ht.project1content.com/f6e/d10/fa3/15c/4c7/ea8/9a3/ad1/1e8/584/6e/mediabook/mediabook_720p.mp4'
+        'https://ht-cdn.trafficjunky.net/c6321/video/003/070/961/3070961_video.mp4'
     ];
 
-    const AD_BREAK_TIMESTAMPS = [15, 45, 75, 105]; 
-    const FLOATING_AD_TIMESTAMPS = [7, 23, 55, 68]; 
+    const AD_BREAK_TIMESTAMPS = [30, 90, 180]; 
+    const FLOATING_AD_TIMESTAMPS = [15, 60, 120]; 
     const SKIP_TIMER_SECONDS = 10;
 
-    // Direct Movie URL
-    const JANE_DOE_MOVIE_URL = 'http://index2.circleftp.net/FILE/English%20%26%20Foreign%20Dubbed%20Movies/2016/The%20Autopsy%20of%20Jane%20Doe%20%282016%291080p%20BluRay%20%5BDual%20Audio%5D%20%5BHin%2BEng%5D%20x264/The%20Autopsy%20of%20Jane%20Doe%20%282016%291080p%20BluRay%20%5BDual%20Audio%5D%20%5BHin%2BEng%5D%20x264.mkv';
+    // Working default movie URL
+    const JANE_DOE_MOVIE_URL = 'https://archive.org/download/night-of-the-living-dead-1968-english/Night%20of%20the%20Living%20Dead%20%281968%29%20English.mp4';
 
     // ==========================================
-    // ⚙️ CORE LOGIC (Safe & Resilient)
+    // ⚙️ CORE LOGIC WITH AUTO-FAILSAFE
     // ==========================================
-
     const player = videojs('my-video');
     const adBanner = document.createElement('div'); adBanner.className = 'vjs-ad-banner'; player.el().appendChild(adBanner);
-    const skipButton = document.createElement('button'); skipButton.className = 'vjs-skip-button'; skipButton.innerHTML = 'Override Quarantine &raquo;'; player.el().appendChild(skipButton);
+    
+    const skipButton = document.createElement('button'); 
+    skipButton.className = 'vjs-skip-button'; 
+    skipButton.innerHTML = 'Override Quarantine &raquo;'; 
+    player.el().appendChild(skipButton);
 
     const floatingAdContainer = document.createElement('div');
     floatingAdContainer.className = 'vjs-floating-ad';
@@ -881,7 +359,11 @@
     function formatUrl(url) {
         if (!url || typeof url !== 'string') return '';
         let clean = url.trim();
-        if (clean.includes('dropbox.com')) return clean.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', '').replace('?dl=1', '');
+        if (clean.includes('dropbox.com')) {
+            return clean.replace('www.dropbox.com', 'dl.dropboxusercontent.com')
+                        .replace('?dl=0', '').replace('&dl=0', '')
+                        .replace('?dl=1', '').replace('&dl=1', '');
+        }
         return clean;
     }
 
@@ -892,6 +374,9 @@
         pendingFloatingAds = [...FLOATING_AD_TIMESTAMPS].sort((a, b) => a - b);
         currentAdIndex = 0;
         currentFloatingAdIndex = 0;
+        document.getElementById('mixed-content-alert').style.display = 'none';
+        
+        // Start pre-roll ad
         startAd(true);
     }
 
@@ -903,7 +388,7 @@
         if (!isPreRoll) resumeTime = player.currentTime();
         
         adBanner.style.display = isPreRoll ? 'none' : 'block';
-        skipButton.style.display = 'none';
+        skipButton.classList.remove('is-active'); 
         player.controls(isPreRoll);
 
         let rawUrl = isPreRoll ? RAW_FIXED_FIRST_AD : SEQUENTIAL_ADS_LIBRARY[currentAdIndex];
@@ -911,13 +396,53 @@
             currentAdIndex = (currentAdIndex + 1) % SEQUENTIAL_ADS_LIBRARY.length;
         }
 
-        player.src({ type: 'video/mp4', src: formatUrl(rawUrl) });
-        player.play().catch(() => { console.error("Main Ad failed, skipping..."); returnToMovie(); });
+        const adUrl = formatUrl(rawUrl);
+        if (!adUrl) {
+            returnToMovie();
+            return;
+        }
+
+        player.src({ type: 'video/mp4', src: adUrl });
+        player.play().catch(() => {
+            console.warn("Pre-roll ad was blocked or failed. Auto-skipping to movie...");
+            returnToMovie();
+        });
     }
+
+    function returnToMovie() {
+        isPlayingAd = false; 
+        adBanner.style.display = 'none'; 
+        skipButton.classList.remove('is-active'); 
+        player.controls(true); 
+
+        const lower = mainMovieSrc.toLowerCase();
+        let mime = 'video/mp4';
+        if (lower.includes('.mkv')) mime = 'video/x-matroska';
+        else if (lower.includes('.webm')) mime = 'video/webm';
+
+        player.src({ type: mime, src: mainMovieSrc });
+        player.one('loadedmetadata', () => { 
+            player.currentTime(resumeTime); 
+            player.play().catch(e => console.warn("Player play trigger:", e)); 
+        });
+    }
+
+    // 🛡️ AD FAILSAFE: If an ad encounters any error, auto-skip directly to the movie!
+    player.on('error', function() {
+        if (isPlayingAd) {
+            console.warn("Ad encountered error. Auto-skipping directly to movie...");
+            player.error(null); // Clear error screen
+            returnToMovie();
+            return;
+        }
+
+        if (window.location.protocol === 'https:' && mainMovieSrc.startsWith('http:')) {
+            document.getElementById('mixed-content-alert').style.display = 'block';
+        }
+    });
 
     function showFloatingAd() {
         if (!FLOATING_ADS_LIBRARY || FLOATING_ADS_LIBRARY.length === 0) return;
-
         floatingVideoElement.pause();
 
         const corners = [
@@ -929,7 +454,6 @@
         
         const pos = corners[Math.floor(Math.random() * corners.length)];
         currentPosAnim = pos.exit;
-
         Object.assign(floatingAdContainer.style, { top: pos.top, left: pos.left, bottom: pos.bottom, right: pos.right });
         floatingAdContainer.className = `vjs-floating-ad ${pos.anim}`;
         
@@ -942,8 +466,7 @@
         
         floatingVideoElement.play().then(() => {
             floatingAdContainer.style.display = 'block';
-        }).catch(e => {
-            console.warn("Floating ad failed to play, moving to next trigger.");
+        }).catch(() => {
             floatingAdContainer.style.display = 'none';
         });
     }
@@ -963,24 +486,6 @@
         }, 480);
     }
 
-    function returnToMovie() {
-        isPlayingAd = false; 
-        adBanner.style.display = 'none'; 
-        skipButton.style.display = 'none';
-        player.controls(true); 
-
-        const lower = mainMovieSrc.toLowerCase();
-        let mime = 'video/mp4';
-        if (lower.includes('.mkv')) mime = 'video/x-matroska';
-        else if (lower.includes('.webm')) mime = 'video/webm';
-
-        player.src({ type: mime, src: mainMovieSrc });
-        player.one('loadedmetadata', () => { 
-            player.currentTime(resumeTime); 
-            player.play().catch(e => console.warn("Player trigger caught:", e)); 
-        });
-    }
-
     player.on('timeupdate', function() {
         if (!mainMovieSrc) return;
         const currentTime = Math.floor(player.currentTime());
@@ -990,11 +495,12 @@
         } else if (adBanner.style.display === 'block') {
             const timeLeft = Math.ceil(player.duration() - player.currentTime());
             adBanner.innerHTML = `⚠️ QUARANTINE INTERRUPT &bull; RESUMING AUTOPSY IN ${timeLeft > 0 ? timeLeft : 0}s`;
-            if (player.currentTime() >= SKIP_TIMER_SECONDS) skipButton.style.display = 'block';
+            if (player.currentTime() >= SKIP_TIMER_SECONDS) {
+                skipButton.classList.add('is-active');
+            }
         }
     });
 
-    // Movie Card Trigger Function
     function playJaneDoeMovie() {
         const card = document.getElementById('card-jane-doe');
         const status = document.getElementById('status-jane-doe');
