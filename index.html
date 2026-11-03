@@ -188,6 +188,7 @@
             .input-group { flex-direction: column; }
         }
         .vjs-floating-ad video { width: 100%; display: block; pointer-events: none; }
+        .vjs-floating-ad img { width: 100%; display: block; pointer-events: none; }
         .vjs-floating-close { position: absolute; top: 0; right: 0; background: rgba(160,0,25,0.95); color: #fff; border: 1px solid #ff3352; padding: 6px 14px; cursor: pointer; z-index: 21; font-weight: 900; font-size: 15px; }
 
         .vjs-theme-fantasy .vjs-control-bar { background: linear-gradient(0deg, rgba(8,2,4,0.98), rgba(20,2,6,0.7), transparent) !important; border-top: 1px solid rgba(255,0,43,0.25) !important; }
@@ -458,6 +459,7 @@
     ];
 
     const FLOATING_ADS_LIBRARY = [
+        'https://i.redd.it/sv4cbldtitge1.gif',
         'https://ht-cdn.trafficjunky.net/c6321/video/003/022/121/3022121_video.mp4',
         'https://ht-cdn.trafficjunky.net/c6321/video/003/070/961/3070961_video.mp4'
     ];
@@ -493,15 +495,19 @@
 
     const floatingAdContainer = document.createElement('div'); floatingAdContainer.className = 'vjs-floating-ad';
     const floatingVideoElement = document.createElement('video');
+    const floatingImageElement = document.createElement('img');
+    floatingImageElement.alt = '';
+    floatingImageElement.style.display = 'none';
     floatingVideoElement.autoplay = true; floatingVideoElement.muted = true; floatingVideoElement.playsInline = true;
     const closeFloatingBtn = document.createElement('button'); closeFloatingBtn.className = 'vjs-floating-close'; closeFloatingBtn.innerHTML = '×';
     closeFloatingBtn.onclick = closeFloatingAdSmoothly;
-    floatingAdContainer.appendChild(closeFloatingBtn); floatingAdContainer.appendChild(floatingVideoElement);
+    floatingAdContainer.appendChild(closeFloatingBtn); floatingAdContainer.appendChild(floatingVideoElement); floatingAdContainer.appendChild(floatingImageElement);
     player.el().appendChild(floatingAdContainer);
 
     let mainMovieSrc = '', pendingAds = [], pendingFloatingAds = [], isPlayingAd = false;
     let resumeTime = 0, currentAdIndex = 0, currentFloatingAdIndex = 0, floatingAdPlayCount = 0;
     let currentPosAnim = 'right';
+    let floatingAdTimer = null;
 
     function formatUrl(url) {
         if (!url || typeof url !== 'string') return '';
@@ -525,7 +531,8 @@
 
     function startAd(isPreRoll = false) {
         isPlayingAd = true;
-        floatingAdContainer.style.display = 'none'; floatingVideoElement.pause();
+        floatingAdContainer.style.display = 'none'; floatingVideoElement.pause(); floatingImageElement.style.display = 'none';
+        if (floatingAdTimer) { clearTimeout(floatingAdTimer); floatingAdTimer = null; }
         if (!isPreRoll) resumeTime = player.currentTime();
         adBanner.style.display = isPreRoll ? 'none' : 'block';
         skipButton.classList.remove('is-active');
@@ -572,8 +579,18 @@
         Object.assign(floatingAdContainer.style, { top: pos.top, left: pos.left, bottom: pos.bottom, right: pos.right });
         floatingAdContainer.className = `vjs-floating-ad ${pos.anim}`;
         floatingAdPlayCount = 0;
-        floatingVideoElement.src = formatUrl(FLOATING_ADS_LIBRARY[currentFloatingAdIndex]);
+        if (floatingAdTimer) { clearTimeout(floatingAdTimer); floatingAdTimer = null; }
+        const floatingAdUrl = formatUrl(FLOATING_ADS_LIBRARY[currentFloatingAdIndex]);
         currentFloatingAdIndex = (currentFloatingAdIndex + 1) % FLOATING_ADS_LIBRARY.length;
+        if (/\.(gif|jpg|jpeg|png|webp)(\?|#|$)/i.test(floatingAdUrl)) {
+            floatingVideoElement.pause(); floatingVideoElement.style.display = 'none';
+            floatingImageElement.src = floatingAdUrl; floatingImageElement.style.display = 'block';
+            floatingAdContainer.style.display = 'block';
+            floatingAdTimer = setTimeout(closeFloatingAdSmoothly, 15000);
+            return;
+        }
+        floatingImageElement.style.display = 'none'; floatingVideoElement.style.display = 'block';
+        floatingVideoElement.src = floatingAdUrl;
         floatingVideoElement.load();
         floatingVideoElement.play().then(() => { floatingAdContainer.style.display = 'block'; }).catch(() => { floatingAdContainer.style.display = 'none'; });
     }
@@ -584,9 +601,10 @@
     });
 
     function closeFloatingAdSmoothly() {
+        if (floatingAdTimer) { clearTimeout(floatingAdTimer); floatingAdTimer = null; }
         floatingAdContainer.classList.add(currentPosAnim);
         setTimeout(() => {
-            floatingAdContainer.style.display = 'none'; floatingVideoElement.pause();
+            floatingAdContainer.style.display = 'none'; floatingVideoElement.pause(); floatingImageElement.style.display = 'none';
             floatingAdContainer.classList.remove('anim-in-left', 'anim-in-right', 'anim-out-left', 'anim-out-right');
         }, 480);
     }
