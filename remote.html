@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☠️ Remote — Video Player Ad Control</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, sans-serif; margin: 0; padding: 20px 15px 60px; background: #050204; color: #d1b8bc; min-height: 100vh; }
+        .container { max-width: 560px; margin: 0 auto; }
+        h1 { font-size: 22px; color: #fff; margin: 0 0 4px 0; }
+        p.sub { color: #ff8090; font-size: 13px; margin: 0 0 20px 0; }
+        .card { background: rgba(20,3,6,0.9); border: 1.5px solid #570e17; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        .card h2 { font-size: 14px; color: #ff1a38; margin: 0 0 12px 0; letter-spacing: 1px; text-transform: uppercase; }
+        label { display: block; font-size: 12px; color: #ff8090; margin: 10px 0 4px 0; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 12px; background: #080204; color: #ffe6e8; border: 1px solid #5e131d; border-radius: 4px; font-size: 14px; }
+        input:focus { border-color: #ff002b; outline: none; }
+        .status { padding: 10px 12px; border-radius: 4px; font-size: 13px; margin-bottom: 12px; background: rgba(40,15,0,0.85); border: 1px solid #996e00; color: #ffb703; }
+        .status.ok { background: rgba(0,60,20,0.85); border-color: #00c853; color: #7dffb0; }
+        .status.bad { background: rgba(60,0,8,0.85); border-color: #ff002b; color: #ff8090; }
+        .ad-option { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border: 1.5px solid #570e17; border-radius: 6px; margin-bottom: 10px; cursor: pointer; }
+        .ad-option.selected { border-color: #ff002b; background: rgba(255,0,43,0.08); }
+        .ad-option input { margin-top: 3px; }
+        .ad-option b { color: #fff; display: block; font-size: 14px; }
+        .ad-option span { font-size: 11px; color: #ff8090; word-break: break-all; }
+        button { width: 100%; padding: 16px; border: none; border-radius: 4px; font-size: 16px; font-weight: 900; cursor: pointer; margin-top: 8px; }
+        .btn-push { background: linear-gradient(135deg, #ff002b, #8a0014); color: #fff; }
+        .btn-hide { background: #24050a; color: #ff6677; border: 1.5px solid #851320; }
+        button:disabled { opacity: 0.5; }
+        .note { font-size: 12px; color: #ff8090; line-height: 1.6; }
+        .note b { color: #ffb703; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>☠️ Ad Remote</h1>
+    <p class="sub">Push a floating ad to the player — on another device, via Cloudflare.</p>
+
+    <div class="card">
+        <h2>Connection</h2>
+        <div class="status" id="status">Not connected yet.</div>
+        <label>Cloudflare Worker URL</label>
+        <input type="text" id="worker-url" placeholder="https://video-player-remote.&lt;your-subdomain&gt;.workers.dev" autocomplete="off">
+        <label>Room code (must match the player)</label>
+        <input type="text" id="room" value="main" autocomplete="off">
+        <label>PIN (the REMOTE_PIN you set on the Worker — leave empty if none)</label>
+        <input type="password" id="pin" placeholder="PIN" autocomplete="off">
+        <button class="btn-hide" id="connect-btn" type="button">Connect / Save</button>
+        <p class="note">If the Worker URL is empty, this page only talks to a player open in another tab of this same browser — for testing only, not across devices. See <b>worker/README.md</b> for the Cloudflare deploy steps.</p>
+    </div>
+
+    <div class="card">
+        <h2>Choose an ad</h2>
+        <label class="ad-option selected"><input type="radio" name="ad" value="0" checked><span><b>1 — Reddit GIF</b><span>https://i.redd.it/sv4cbldtitge1.gif</span></span></label>
+        <label class="ad-option"><input type="radio" name="ad" value="1"><span><b>2 — Floating video 1</b><span>TrafficJunky video</span></span></label>
+        <label class="ad-option"><input type="radio" name="ad" value="2"><span><b>3 — Floating video 2</b><span>TrafficJunky video</span></span></label>
+        <label class="ad-option"><input type="radio" name="ad" value="custom"><span><b>Custom URL</b><span>GIF / JPG / PNG / WebP image, or MP4 / WebM video</span></span></label>
+        <label>Custom ad URL</label>
+        <input type="text" id="custom-url" placeholder="https://…" autocomplete="off">
+        <button class="btn-push" id="push-btn" type="button">▶ Push ad now</button>
+        <button class="btn-hide" id="hide-btn" type="button">✕ Hide ad</button>
+        <p class="note">After you tap <b>Push</b>, the ad plays on the player <b>2 seconds later</b>. Automatic ads are unchanged — they still run at 15 / 60 / 120 seconds.</p>
+    </div>
+</div>
+
+<script>
+    const $ = (id) => document.getElementById(id);
+    const statusEl = $('status');
+    const params = new URLSearchParams(location.search);
+
+    function getWorkerUrl() { return ($('worker-url').value || '').trim().replace(/\/$/, ''); }
+    function getRoom() { return ($('room').value || 'main').trim(); }
+    function getPin() { return $('pin').value || ''; }
+
+    // Restore saved settings
+    $('worker-url').value = params.get('worker') || localStorage.getItem('vpr_worker_url') || '';
+    $('room').value = params.get('room') || localStorage.getItem('vpr_room') || 'main';
+    $('pin').value = localStorage.getItem('vpr_pin') || '';
+
+    function setStatus(text, kind) {
+        statusEl.textContent = text;
+        statusEl.className = 'status' + (kind ? ' ' + kind : '');
+    }
+
+    document.querySelectorAll('.ad-option').forEach((el) => {
+        el.addEventListener('click', () => {
+            document.querySelectorAll('.ad-option').forEach((o) => o.classList.remove('selected'));
+            el.classList.add('selected');
+        });
+    });
+
+    async function checkConnection() {
+        const workerUrl = getWorkerUrl();
+        const room = getRoom();
+        localStorage.setItem('vpr_worker_url', workerUrl);
+        localStorage.setItem('vpr_room', room);
+        localStorage.setItem('vpr_pin', getPin());
+        if (!workerUrl) {
+            setStatus('No Worker URL — same-browser tabs only. Set the Cloudflare Worker URL for other devices.');
+            return;
+        }
+        try {
+            const res = await fetch(workerUrl + '/count?room=' + encodeURIComponent(room));
+            const data = await res.json();
+            setStatus('Connected to Cloudflare. Players in room "' + room + '": ' + (data.players ?? '?'), 'ok');
+        } catch {
+            setStatus('Could not reach the Worker. Check the URL — did you deploy it yet?', 'bad');
+        }
+    }
+
+    function sendLocal(command) {
+        try { new BroadcastChannel('video-player-remote-' + getRoom()).postMessage(command); } catch {}
+        try { localStorage.setItem('video-player-remote-' + getRoom(), JSON.stringify(command)); } catch {}
+    }
+
+    async function sendCommand(command) {
+        command.id = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
+        command.room = getRoom();
+        command.pin = getPin();
+        const workerUrl = getWorkerUrl();
+        if (!workerUrl) { sendLocal(command); return { ok: true, local: true }; }
+        const res = await fetch(workerUrl + '/push', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(command),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+        return data;
+    }
+
+    function selectedAd() {
+        const choice = document.querySelector('input[name="ad"]:checked').value;
+        if (choice === 'custom') {
+            const url = $('custom-url').value.trim();
+            if (!url) throw new Error('Enter a custom ad URL first.');
+            return { url };
+        }
+        return { index: parseInt(choice, 10) };
+    }
+
+    $('connect-btn').addEventListener('click', checkConnection);
+
+    $('push-btn').addEventListener('click', async () => {
+        const btn = $('push-btn');
+        btn.disabled = true;
+        try {
+            const ad = selectedAd();
+            const result = await sendCommand({ type: 'show-floating-ad', ...ad });
+            setStatus('Pushed — ad will play in 2 sec' + (result.players != null ? ' on ' + result.players + ' player(s).' : '.'), 'ok');
+            setTimeout(checkConnection, 500);
+        } catch (e) {
+            setStatus('Push failed: ' + e.message, 'bad');
+        } finally { btn.disabled = false; }
+    });
+
+    $('hide-btn').addEventListener('click', async () => {
+        try {
+            await sendCommand({ type: 'hide-floating-ad' });
+            setStatus('Hide sent.', 'ok');
+        } catch (e) {
+            setStatus('Hide failed: ' + e.message, 'bad');
+        }
+    });
+
+    checkConnection();
+</script>
+</body>
+</html>

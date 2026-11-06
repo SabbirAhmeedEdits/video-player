@@ -1,0 +1,17 @@
+name = "video-player-remote"
+main = "src/index.js"
+compatibility_date = "2025-04-01"
+
+# One Durable Object instance per room code. The player and the remote
+# must use the same room (default: "main").
+[[durable_objects]]
+bindings = [{ name = "REMOTE_ROOM", class_name = "RemoteRoom" }]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RemoteRoom"]
+
+# Optional secret, set after deploy (recommended):
+#   npx wrangler secret put REMOTE_PIN
+# The remote page must then send the same PIN. If it is not set,
+# anyone who knows your Worker URL + room code could push ads.

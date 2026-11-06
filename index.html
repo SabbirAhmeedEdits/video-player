@@ -469,6 +469,18 @@
     const SKIP_TIMER_SECONDS = 10;
 
     // ==========================================
+    // 📡 REMOTE CONTROL (Cloudflare)
+    // ==========================================
+    // Set this to your deployed Worker URL after `npx wrangler deploy`,
+    // e.g. 'https://video-player-remote.<your-subdomain>.workers.dev'
+    // Leave '' to disable Cloudflare and use same-browser tabs only.
+    // ?worker=<url> and ?room=<code> in the page URL override these.
+    const REMOTE_WORKER_URL = '';
+    const REMOTE_ROOM = 'main';
+    // Tweak: how long after you tap Push on the remote before the ad slides in.
+    const REMOTE_PUSH_DELAY_MS = 2000;
+
+    // ==========================================
     // 🎬 MOVIE LIBRARY
     // ==========================================
     const MOVIES = {
@@ -508,6 +520,8 @@
     let resumeTime = 0, currentAdIndex = 0, currentFloatingAdIndex = 0, floatingAdPlayCount = 0;
     let currentPosAnim = 'right';
     let floatingAdTimer = null;
+    let lastRemoteCommandId = '';
+    let pendingRemoteAdTimer = null;
 
     function formatUrl(url) {
         if (!url || typeof url !== 'string') return '';
@@ -565,7 +579,7 @@
         }
     });
 
-    function showFloatingAd() {
+    function showFloatingAd(remoteUrl) {
         if (!FLOATING_ADS_LIBRARY.length) return;
         floatingVideoElement.pause();
         const corners = [
@@ -580,8 +594,8 @@
         floatingAdContainer.className = `vjs-floating-ad ${pos.anim}`;
         floatingAdPlayCount = 0;
         if (floatingAdTimer) { clearTimeout(floatingAdTimer); floatingAdTimer = null; }
-        const floatingAdUrl = formatUrl(FLOATING_ADS_LIBRARY[currentFloatingAdIndex]);
-        currentFloatingAdIndex = (currentFloatingAdIndex + 1) % FLOATING_ADS_LIBRARY.length;
+        const floatingAdUrl = formatUrl(remoteUrl || FLOATING_ADS_LIBRARY[currentFloatingAdIndex]);
+        if (!remoteUrl) currentFloatingAdIndex = (currentFloatingAdIndex + 1) % FLOATING_ADS_LIBRARY.length;
         if (/\.(gif|jpg|jpeg|png|webp)(\?|#|$)/i.test(floatingAdUrl)) {
             floatingVideoElement.pause(); floatingVideoElement.style.display = 'none';
             floatingImageElement.src = floatingAdUrl; floatingImageElement.style.display = 'block';
@@ -647,6 +661,63 @@
     document.getElementById('video-upload').addEventListener('change', (e) => { if (e.target.files[0]) setupNewMovie(URL.createObjectURL(e.target.files[0])); });
     skipButton.onclick = returnToMovie;
     player.on('ended', () => { if (isPlayingAd) returnToMovie(); });
+
+    // ==========================================
+    // 📡 REMOTE CONTROL — push a floating ad from another device
+    // ==========================================
+    // Automatic ads are untouched. A remote command only shows one
+    // extra floating ad right now, or hides the one showing.
+    function handleRemoteCommand(command) {
+        if (!command || typeof command.type !== 'string') return;
+        if (command.id && command.id === lastRemoteCommandId) return;
+        if (command.id) lastRemoteCommandId = command.id;
+        if (command.type === 'hide-floating-ad') {
+            if (pendingRemoteAdTimer) { clearTimeout(pendingRemoteAdTimer); pendingRemoteAdTimer = null; }
+            closeFloatingAdSmoothly(); return;
+        }
+        if (command.type !== 'show-floating-ad') return;
+        let url = '';
+        if (typeof command.index === 'number' && FLOATING_ADS_LIBRARY[command.index]) {
+            url = FLOATING_ADS_LIBRARY[command.index];
+        } else if (typeof command.url === 'string' && command.url.trim()) {
+            url = command.url.trim();
+        }
+        if (!url) return;
+        if (pendingRemoteAdTimer) clearTimeout(pendingRemoteAdTimer);
+        pendingRemoteAdTimer = setTimeout(() => { pendingRemoteAdTimer = null; showFloatingAd(url); }, REMOTE_PUSH_DELAY_MS);
+    }
+
+    (function connectRemote() {
+        const params = new URLSearchParams(location.search);
+        const workerUrl = (params.get('worker') || REMOTE_WORKER_URL || '').replace(/\/$/, '');
+        const room = params.get('room') || REMOTE_ROOM || 'main';
+
+        // Fallback for testing: remote.html in another tab of the SAME
+        // browser can push without Cloudflare. It does not work across
+        // devices — for that, set REMOTE_WORKER_URL above.
+        try {
+            const channel = new BroadcastChannel('video-player-remote-' + room);
+            channel.onmessage = (e) => handleRemoteCommand(e.data);
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'video-player-remote-' + room && e.newValue) {
+                    try { handleRemoteCommand(JSON.parse(e.newValue)); } catch {}
+                }
+            });
+        } catch {}
+
+        if (!workerUrl) { console.log('[remote] Cloudflare not configured; same-browser tabs only.'); return; }
+        let socket = null, retryMs = 1000;
+        function connect() {
+            const wsUrl = workerUrl.replace(/^http/, 'ws') + '/ws?room=' + encodeURIComponent(room) + '&role=player';
+            try { socket = new WebSocket(wsUrl); } catch { schedule(); return; }
+            socket.onopen = () => { retryMs = 1000; console.log('[remote] connected to Cloudflare room:', room); };
+            socket.onmessage = (e) => { try { handleRemoteCommand(JSON.parse(e.data)); } catch {} };
+            socket.onclose = schedule;
+            socket.onerror = () => { try { socket.close(); } catch {} };
+        }
+        function schedule() { setTimeout(connect, retryMs); retryMs = Math.min(retryMs * 2, 30000); }
+        connect();
+    })();
 </script>
 
 </body>
