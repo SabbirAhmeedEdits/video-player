@@ -436,6 +436,38 @@
                 </div>
             </div>
 
+            <!-- ===== CARD 3: PIRANHA 3D ===== -->
+            <div class="movie-card" id="card-piranha3d" onclick="playMovie('piranha3d')">
+                <div class="card-thumb-frame">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/3/36/Piranha_3D_Poster.png"
+                         alt="Piranha 3D (2010)"
+                         class="movie-thumb-img"
+                         referrerpolicy="no-referrer"
+                         onerror="if(this.src!=='https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Piranha_3D_Poster.png/250px-Piranha_3D_Poster.png'){this.src='https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Piranha_3D_Poster.png/250px-Piranha_3D_Poster.png';}">
+                    <span class="hazard-ribbon">18+ EXTREME</span>
+                    <div class="thumb-toe-tag">LAKE VICTORIA // SPRING BREAK<br>THREAT: PREHISTORIC PIRANHA</div>
+                    <div class="card-play-overlay"><span class="play-icon">&#9658;</span></div>
+                </div>
+                <div class="movie-details">
+                    <div>
+                        <div class="movie-meta-tags">
+                            <span class="tag-extreme">18+ EXTREME GORE</span>
+                            <span class="tag-biohazard">HORROR COMEDY</span>
+                            <span class="tag-biohazard">HD STREAM</span>
+                            <span class="tag-rating">&#9733; 5.5 / 10 IMDb</span>
+                        </div>
+                        <h3 class="movie-title">Piranha 3D (2010)</h3>
+                        <p class="movie-synopsis">
+                            An earthquake cracks open the floor of Lake Victoria during spring break, releasing a swarm of prehistoric piranhas into the crowded waters. Sheriff Julie Forester races to warn the partying crowds as the ancient predators turn the lake into a feeding frenzy. <span class="synopsis-highlight">Thousands of razor-toothed killers, one lake full of victims — and nowhere to swim.</span>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-play-card" type="button"><span>&#9654;</span> STREAM FULL MOVIE</button>
+                        <span class="stream-status" id="status-piranha3d">[ READY TO STREAM ]</span>
+                    </div>
+                </div>
+            </div>
+
         </div><!-- end cards-grid -->
     </div>
 
@@ -488,10 +520,16 @@
     // ==========================================
     const MOVIES = {
         'jane-doe': {
-            url: 'http://index2.circleftp.net/FILE/English%20%26%20Foreign%20Dubbed%20Movies/2016/The%20Autopsy%20of%20Jane%20Doe%20%282016%291080p%20BluRay%20%5BDual%20Audio%5D%20%5BHin%2BEng%5D%20x264/The%20Autopsy%20of%20Jane%20Doe%20%282016%291080p%20BluRay%20%5BDual%20Audio%5D%20%5BHin%2BEng%5D%20x264.mkv',
+            url: 'https://www.dropbox.com/scl/fi/nud9xuzqrownccg6hzch1/The-Autopsy-Of-Jane-Doe-2016.mp4?rlkey=cuo7ecx149bfnqrqlrtrcl4p3&st=uotdwz8c&dl=0',
             statusId: 'status-jane-doe',
             cardId: 'card-jane-doe',
             statusText: '🔴 AUTOPSY UNDERWAY'
+        },
+        'piranha3d': {
+            url: 'https://www.dropbox.com/scl/fi/2nkdh4wiy57q6h3qleira/Piranha-3D-2010.mp4?rlkey=28bqjklx0ha8usjgdhp33amiv&st=docll9fa&dl=0',
+            statusId: 'status-piranha3d',
+            cardId: 'card-piranha3d',
+            statusText: '🔴 PIRANHAS UNLEASHED'
         },
         'terrifier3': {
             url: 'https://www.dropbox.com/scl/fi/egee6oq6d99g6bjcbkho6/Terrifier-3-2024-1080P-Bluray-Dual-Audio-Hindi-English-X264.mp4?rlkey=26n2qlrjmxlz9zbvcly0d8nd4&st=o1h3h73o&dl=0',
