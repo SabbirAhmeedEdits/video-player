@@ -3,64 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☠️ Remote — Video Player Ad Control</title>
+    <title>Ad Remote — Video Player</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: -apple-system, sans-serif; margin: 0; padding: 20px 15px 60px; background: #050204; color: #d1b8bc; min-height: 100vh; }
-        .container { max-width: 560px; margin: 0 auto; }
-        h1 { font-size: 22px; color: #fff; margin: 0 0 4px 0; }
-        p.sub { color: #ff8090; font-size: 13px; margin: 0 0 20px 0; }
-        .card { background: rgba(20,3,6,0.9); border: 1.5px solid #570e17; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        .card h2 { font-size: 14px; color: #ff1a38; margin: 0 0 12px 0; letter-spacing: 1px; text-transform: uppercase; }
-        label { display: block; font-size: 12px; color: #ff8090; margin: 10px 0 4px 0; }
-        input[type="text"], input[type="password"] { width: 100%; padding: 12px; background: #080204; color: #ffe6e8; border: 1px solid #5e131d; border-radius: 4px; font-size: 14px; }
-        input:focus { border-color: #ff002b; outline: none; }
-        .status { padding: 10px 12px; border-radius: 4px; font-size: 13px; margin-bottom: 12px; background: rgba(40,15,0,0.85); border: 1px solid #996e00; color: #ffb703; }
-        .status.ok { background: rgba(0,60,20,0.85); border-color: #00c853; color: #7dffb0; }
-        .status.bad { background: rgba(60,0,8,0.85); border-color: #ff002b; color: #ff8090; }
-        .ad-option { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border: 1.5px solid #570e17; border-radius: 6px; margin-bottom: 10px; cursor: pointer; }
-        .ad-option.selected { border-color: #ff002b; background: rgba(255,0,43,0.08); }
-        .ad-option input { margin-top: 3px; }
-        .ad-option b { color: #fff; display: block; font-size: 14px; }
-        .ad-option span { font-size: 11px; color: #ff8090; word-break: break-all; }
-        button { width: 100%; padding: 16px; border: none; border-radius: 4px; font-size: 16px; font-weight: 900; cursor: pointer; margin-top: 8px; }
-        .btn-push { background: linear-gradient(135deg, #ff002b, #8a0014); color: #fff; }
-        .btn-hide { background: #24050a; color: #ff6677; border: 1.5px solid #851320; }
-        button:disabled { opacity: 0.5; }
-        .note { font-size: 12px; color: #ff8090; line-height: 1.6; }
-        .note b { color: #ffb703; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 24px 16px 48px; background: #f4f6f8; color: #1a202c; min-height: 100vh; }
+        .container { max-width: 520px; margin: 0 auto; }
+        header { margin-bottom: 16px; }
+        h1 { font-size: 22px; font-weight: 700; margin: 0 0 4px 0; color: #111827; }
+        p.sub { color: #6b7280; font-size: 14px; margin: 0; }
+        .status { padding: 10px 14px; border-radius: 8px; font-size: 13px; line-height: 1.5; margin-bottom: 16px; background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+        .status.ok { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+        .status.bad { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+        .card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04); }
+        .card h2 { font-size: 15px; font-weight: 600; color: #111827; margin: 0 0 4px 0; }
+        .card .hint { font-size: 13px; color: #6b7280; margin: 0 0 16px 0; }
+        label { display: block; font-size: 13px; font-weight: 500; color: #374151; margin: 14px 0 6px 0; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 11px 12px; background: #ffffff; color: #111827; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
+        input:focus { border-color: #2563eb; outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+        .ad-option { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 10px; cursor: pointer; background: #ffffff; }
+        .ad-option:hover { border-color: #cbd5e1; }
+        .ad-option.selected { border-color: #2563eb; background: #eff6ff; }
+        .ad-option input { margin-top: 3px; accent-color: #2563eb; }
+        .ad-option b { color: #111827; display: block; font-size: 14px; font-weight: 600; }
+        .ad-option span span { font-size: 12px; color: #6b7280; word-break: break-all; }
+        button { width: 100%; padding: 13px; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .btn-push { background: #2563eb; color: #ffffff; }
+        .btn-push:hover { background: #1d4ed8; }
+        .btn-hide { background: #ffffff; color: #374151; border: 1px solid #d1d5db; }
+        .btn-hide:hover { background: #f9fafb; }
+        button:disabled { opacity: 0.5; cursor: default; }
+        .note { font-size: 13px; color: #6b7280; line-height: 1.6; margin: 14px 0 0 0; }
+        details.card { padding: 0; }
+        details.card summary { list-style: none; cursor: pointer; padding: 18px 20px; font-size: 15px; font-weight: 600; color: #111827; display: flex; justify-content: space-between; align-items: center; }
+        details.card summary::-webkit-details-marker { display: none; }
+        details.card summary::after { content: "+"; font-size: 20px; font-weight: 400; color: #6b7280; }
+        details.card[open ] summary::after { content: "−"; }
+        details.card .details-body { padding: 0 20px 20px 20px; border-top: 1px solid #f3f4f6; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>☠️ Ad Remote</h1>
-    <p class="sub">Push a floating ad to the player — on another device, via Cloudflare.</p>
+    <header>
+        <h1>Ad Remote</h1>
+        <p class="sub">Push a floating ad to the video player.</p>
+    </header>
 
-    <div class="card">
-        <h2>Connection</h2>
-        <div class="status" id="status">Not connected yet.</div>
-        <label>Cloudflare Worker URL</label>
-        <input type="text" id="worker-url" placeholder="https://video-player-remote.&lt;your-subdomain&gt;.workers.dev" autocomplete="off">
-        <label>Room code (must match the player)</label>
-        <input type="text" id="room" value="main" autocomplete="off">
-        <label>PIN (the REMOTE_PIN you set on the Worker — leave empty if none)</label>
-        <input type="password" id="pin" placeholder="PIN" autocomplete="off">
-        <button class="btn-hide" id="connect-btn" type="button">Connect / Save</button>
-        <p class="note">If the Worker URL is empty, this page only talks to a player open in another tab of this same browser — for testing only, not across devices. See <b>worker/README.md</b> for the Cloudflare deploy steps.</p>
-    </div>
+    <div class="status" id="status">Checking connection…</div>
 
     <div class="card">
         <h2>Choose an ad</h2>
+        <p class="hint">Pick an ad, then tap Push ad now. It will play on the player 2 seconds later.</p>
         <label class="ad-option selected"><input type="radio" name="ad" value="0" checked><span><b>1 — Reddit GIF</b><span>https://i.redd.it/sv4cbldtitge1.gif</span></span></label>
         <label class="ad-option"><input type="radio" name="ad" value="1"><span><b>2 — Floating video 1</b><span>TrafficJunky video</span></span></label>
         <label class="ad-option"><input type="radio" name="ad" value="2"><span><b>3 — Floating video 2</b><span>TrafficJunky video</span></span></label>
-        <label class="ad-option"><input type="radio" name="ad" value="custom"><span><b>Custom URL</b><span>GIF / JPG / PNG / WebP image, or MP4 / WebM video</span></span></label>
-        <label>Custom ad URL</label>
+        <label class="ad-option"><input type="radio" name="ad" value="custom"><span><b>Custom URL</b><span>GIF, JPG, PNG or WebP image, or MP4 / WebM video</span></span></label>
+        <label for="custom-url">Custom ad URL</label>
         <input type="text" id="custom-url" placeholder="https://…" autocomplete="off">
-        <button class="btn-push" id="push-btn" type="button">▶ Push ad now</button>
-        <button class="btn-hide" id="hide-btn" type="button">✕ Hide ad</button>
-        <p class="note">After you tap <b>Push</b>, the ad plays on the player <b>2 seconds later</b>. Automatic ads are unchanged — they still run at 15 / 60 / 120 seconds.</p>
+        <button class="btn-push" id="push-btn" type="button">Push ad now</button>
+        <button class="btn-hide" id="hide-btn" type="button">Hide ad</button>
+        <p class="note">Automatic ads are unchanged — they still run at 15, 60 and 120 seconds.</p>
     </div>
+
+    <details class="card">
+        <summary>Connection settings</summary>
+        <div class="details-body">
+            <label for="worker-url">Cloudflare Worker URL</label>
+            <input type="text" id="worker-url" placeholder="https://video-player-remote.&lt;your-subdomain&gt;.workers.dev" autocomplete="off">
+            <label for="room">Room code (must match the player)</label>
+            <input type="text" id="room" value="main" autocomplete="off">
+            <label for="pin">PIN (leave empty if none is set on the Worker)</label>
+            <input type="password" id="pin" placeholder="PIN" autocomplete="off">
+            <button class="btn-hide" id="connect-btn" type="button">Connect / Save</button>
+            <p class="note">If the Worker URL is empty, this page only talks to a player open in another tab of this same browser — for testing only, not across devices.</p>
+        </div>
+    </details>
 </div>
 
 <script>
