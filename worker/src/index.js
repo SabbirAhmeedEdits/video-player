@@ -143,7 +143,7 @@ export default {
       }
       const room = body.room || 'main';
       const stub = roomStub(env, room);
-      const res = await stub.fetch(new Request(url.origin + '/broadcast', {
+      const res = await stub.fetch(new Request('https://internal/broadcast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: body.type, url: body.url, index: body.index, id: body.id }),
