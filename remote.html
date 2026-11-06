@@ -57,6 +57,7 @@
         .btn-push { width: 36px; height: 36px; flex-shrink: 0; padding: 0; border: none; border-radius: 50%; background: #611f69; color: #fff; font-size: 16px; cursor: pointer; }
         .btn-push:disabled { opacity: 0.5; }
         .btn-hide { background: none; border: none; color: #616061; font-size: 13px; padding: 8px 0 0; cursor: pointer; }
+        .hint { font-size: 12px; color: #616061; margin: 6px 0 0; }
         .btn-hide:hover { color: #1d1c1d; }
         /* Settings in sidebar */
         details { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.15); padding: 0 16px 8px; }
@@ -140,6 +141,7 @@
                 </div>
             </div>
             <button class="btn-hide" id="hide-btn" type="button">↩&nbsp; Delete message</button>
+            <p class="hint">Tip: type a number here to set the delay in seconds. Leave it empty for 3 seconds.</p>
         </div>
     </main>
 </div>
@@ -222,12 +224,29 @@
 
     $('connect-btn').addEventListener('click', checkConnection);
 
+    // If a numbered ad is selected and the message box holds just a number,
+    // that number is the delay in seconds for this push (0-60). Default is 3s.
+    // With Custom selected, the message box is the link, not a delay.
+    function typedDelayMs() {
+        const text = $('custom-url').value.trim();
+        if (!/^\d+$/.test(text)) return null;
+        const sec = parseInt(text, 10);
+        if (sec < 0 || sec > 60) return null;
+        return sec * 1000;
+    }
+
     $('push-btn').addEventListener('click', async () => {
         const btn = $('push-btn');
         btn.disabled = true;
         try {
             const ad = selectedAd();
-            await sendCommand({ type: 'show-floating-ad', ...ad });
+            const command = { type: 'show-floating-ad', ...ad };
+            const choice = document.querySelector('input[name="ad"]:checked').value;
+            if (choice !== 'custom') {
+                const delayMs = typedDelayMs();
+                if (delayMs != null) command.delayMs = delayMs;
+            }
+            await sendCommand(command);
             setStatus('Message sent', 'ok');
             setTimeout(checkConnection, 500);
         } catch (e) {

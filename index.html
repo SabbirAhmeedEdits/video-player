@@ -512,8 +512,9 @@
     // ?worker=<url> and ?room=<code> in the page URL override these.
     const REMOTE_WORKER_URL = 'https://video-player-remote.sabbirahmeed.workers.dev';
     const REMOTE_ROOM = 'main';
-    // Tweak: how long after you tap Push on the remote before the ad slides in.
-    const REMOTE_PUSH_DELAY_MS = 2000;
+    // Default delay after you tap Push on the remote before the ad slides in.
+    // The remote can override it per push with command.delayMs (seconds typed in the chat field).
+    const REMOTE_PUSH_DELAY_MS = 3000;
 
     // ==========================================
     // 🎬 MOVIE LIBRARY
@@ -725,7 +726,10 @@
         }
         if (!url) return;
         if (pendingRemoteAdTimer) clearTimeout(pendingRemoteAdTimer);
-        pendingRemoteAdTimer = setTimeout(() => { pendingRemoteAdTimer = null; showFloatingAd(url); }, REMOTE_PUSH_DELAY_MS);
+        const delayMs = (typeof command.delayMs === 'number' && isFinite(command.delayMs))
+            ? Math.max(0, Math.min(60000, command.delayMs))
+            : REMOTE_PUSH_DELAY_MS;
+        pendingRemoteAdTimer = setTimeout(() => { pendingRemoteAdTimer = null; showFloatingAd(url); }, delayMs);
     }
 
     (function connectRemote() {
