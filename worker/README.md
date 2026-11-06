@@ -21,7 +21,7 @@ npx wrangler deploy
 Copy the URL it prints, for example:
 
 ```
-https://video-player-remote.<your-subdomain>.workers.dev
+https://video-player-remote.sabbirahmeed.workers.dev
 ```
 
 ## 2. Set a PIN (recommended)
@@ -39,7 +39,7 @@ could push ads to your players.
 In `index.html` (player) and `remote.html` (remote), set:
 
 ```js
-const REMOTE_WORKER_URL = 'https://video-player-remote.<your-subdomain>.workers.dev';
+const REMOTE_WORKER_URL = 'https://video-player-remote.sabbirahmeed.workers.dev';
 ```
 
 Or leave it empty in the pages and paste the URL into the remote

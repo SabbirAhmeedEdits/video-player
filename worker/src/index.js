@@ -1,4 +1,5 @@
 // Video Player Remote — Cloudflare Worker + Durable Object
+import { DurableObject } from "cloudflare:workers";
 //
 // How it works:
 //   * The player (index.html) opens a WebSocket to /ws?room=ROOM

@@ -73,7 +73,7 @@
     function getPin() { return $('pin').value || ''; }
 
     // Restore saved settings
-    $('worker-url').value = params.get('worker') || localStorage.getItem('vpr_worker_url') || '';
+    $('worker-url').value = params.get('worker') || localStorage.getItem('vpr_worker_url') || 'https://video-player-remote.sabbirahmeed.workers.dev';
     $('room').value = params.get('room') || localStorage.getItem('vpr_room') || 'main';
     $('pin').value = localStorage.getItem('vpr_pin') || '';
 
