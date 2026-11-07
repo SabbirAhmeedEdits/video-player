@@ -9,6 +9,8 @@ import { DurableObject } from "cloudflare:workers";
 //   * Commands: { type: 'show-floating-ad', url } |
 //               { type: 'show-floating-ad', index } |
 //               { type: 'hide-floating-ad' }
+//   * show-floating-ad may also carry delayMs (ms to wait before the
+//     ad slides in; player defaults to 3000 when it is absent).
 //   * Automatic ads in the player are untouched. A remote push only
 //     shows one extra floating ad; it does not change the auto rotation.
 //
@@ -146,7 +148,7 @@ export default {
       const res = await stub.fetch(new Request('https://internal/broadcast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: body.type, url: body.url, index: body.index, id: body.id }),
+        body: JSON.stringify({ type: body.type, url: body.url, index: body.index, id: body.id, delayMs: body.delayMs }),
       }));
       const data = await res.json().catch(() => ({}));
       return Response.json(data, { status: res.status, headers: corsHeaders() });
