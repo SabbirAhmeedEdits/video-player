@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Slack</title>
     <style>
         * { box-sizing: border-box; }
@@ -70,9 +70,33 @@
         details .copilot-row input { width: auto; accent-color: #2bac76; }
         details .btn-save { width: 100%; padding: 10px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; background: #fff; color: #3f0e40; margin-top: 12px; cursor: pointer; }
         .note { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; margin: 10px 0 0; }
+        /* Mobile — Sabbir controls this from his phone 99% of the time.
+           The old rule hid the whole sidebar on small screens, which also
+           hid Settings (PIN, Copilot, Save). Now the channel and controls
+           come first, and Settings moves below them instead of vanishing. */
         @media (max-width: 700px) {
-            .sidebar { display: none; }
+            .app { flex-direction: column; }
+            .main { order: 1; border-right: none; }
+            .sidebar { order: 2; width: 100%; padding: 0 0 24px; }
+            .sidebar .search, .sidebar .side-section { display: none; }
+            .workspace { padding: 10px 16px; border-bottom: none; }
+            .workspace b { font-size: 15px; }
+            .channel-header { position: sticky; top: 0; background: #fff; z-index: 5; padding: 10px 14px; }
             .channel-header .topic { display: none; }
+            .messages { padding: 10px 14px 4px; }
+            .msg { padding: 4px 0; }
+            .ad-option { padding: 12px 8px; }
+            .ad-option b { font-size: 16px; }
+            .composer-wrap { position: sticky; bottom: 0; background: #fff; padding: 8px 14px calc(12px + env(safe-area-inset-bottom)); }
+            .composer-row input { font-size: 16px; }
+            .btn-push { width: 44px; height: 44px; font-size: 18px; }
+            .btn-hide { padding: 12px 0 0; font-size: 14px; }
+            .hint { font-size: 13px; }
+            details { margin-top: 0; border-top: none; }
+            details summary { padding: 14px 0 6px; }
+            details input[type="text"], details input[type="password"] { padding: 12px 10px; font-size: 16px; }
+            details .copilot-row { font-size: 14px; padding: 6px 0; }
+            details .btn-save { padding: 13px; }
         }
     </style>
 </head>
