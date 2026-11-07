@@ -8,7 +8,8 @@ import { DurableObject } from "cloudflare:workers";
 //     Durable Object, which broadcasts it to every connected player.
 //   * Commands: { type: 'show-floating-ad', url } |
 //               { type: 'show-floating-ad', index } |
-//               { type: 'hide-floating-ad' }
+//               { type: 'hide-floating-ad' } |
+//               { type: 'set-copilot', enabled }
 //   * show-floating-ad may also carry delayMs (ms to wait before the
 //     ad slides in; player defaults to 3000 when it is absent).
 //   * Automatic ads in the player are untouched. A remote push only
@@ -85,7 +86,7 @@ export class RemoteRoom extends DurableObject {
       if (ws.deserializeAttachment()?.role !== 'remote') return;
     } catch { return; }
 
-    if (command.type === 'show-floating-ad' || command.type === 'hide-floating-ad') {
+    if (command.type === 'show-floating-ad' || command.type === 'hide-floating-ad' || command.type === 'set-copilot') {
       this.broadcast(command, ws);
     }
   }
@@ -148,7 +149,7 @@ export default {
       const res = await stub.fetch(new Request('https://internal/broadcast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: body.type, url: body.url, index: body.index, id: body.id, delayMs: body.delayMs }),
+        body: JSON.stringify({ type: body.type, url: body.url, index: body.index, id: body.id, delayMs: body.delayMs, enabled: body.enabled }),
       }));
       const data = await res.json().catch(() => ({}));
       return Response.json(data, { status: res.status, headers: corsHeaders() });

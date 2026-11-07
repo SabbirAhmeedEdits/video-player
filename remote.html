@@ -66,6 +66,8 @@
         details label { display: block; font-size: 12px; color: rgba(255,255,255,0.75); margin: 10px 0 4px; }
         details input[type="text"], details input[type="password"] { background: #4a154b; color: #fff; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 9px 10px; font-size: 13px; }
         details input::placeholder { color: rgba(255,255,255,0.5); }
+        details .copilot-row { display: flex; gap: 8px; align-items: center; font-size: 13px; color: #fff; margin: 14px 0 0; cursor: pointer; }
+        details .copilot-row input { width: auto; accent-color: #2bac76; }
         details .btn-save { width: 100%; padding: 10px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; background: #fff; color: #3f0e40; margin-top: 12px; cursor: pointer; }
         .note { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; margin: 10px 0 0; }
         @media (max-width: 700px) {
@@ -78,14 +80,14 @@
 <div class="app">
     <aside class="sidebar">
         <div class="workspace">
-            <b>Movie Night ⌄</b>
+            <b>Team Chat ⌄</b>
             <span><span class="dot">●</span> You</span>
         </div>
         <div class="search">🔍&nbsp; Search</div>
         <div class="side-section">
             <h3>Channels</h3>
             <div class="side-item"># general</div>
-            <div class="side-item active"># movie-night</div>
+            <div class="side-item active"># team-chat</div>
             <div class="side-item"># random</div>
         </div>
         <div class="side-section">
@@ -102,6 +104,8 @@
             <input type="text" id="room" value="main" autocomplete="off">
             <label for="pin">PIN (leave empty if none is set)</label>
             <input type="password" id="pin" placeholder="PIN" autocomplete="off">
+            <label class="copilot-row"><input type="checkbox" id="copilot-toggle" checked> Copilot mode</label>
+            <p class="note">Copilot on: ads play automatically on time. Off: only your pushes show an ad.</p>
             <button class="btn-save" id="connect-btn" type="button">Save</button>
             <p class="note">If the server is empty, this only works in another tab of this same browser.</p>
         </details>
@@ -109,7 +113,7 @@
 
     <main class="main">
         <div class="channel-header">
-            <h1># movie-night</h1>
+            <h1># team-chat</h1>
             <span class="topic">Team updates</span>
             <span class="presence">● <span id="status" class="status">connecting…</span></span>
         </div>
@@ -136,7 +140,7 @@
                 <div class="toolbar"><span><b>B</b></span><span><i>I</i></span><span><u>S</u></span><span>🔗</span><span>😊</span><span>📎</span></div>
                 <div class="composer-row">
                     <span style="color:#616061;">＋</span>
-                    <input type="text" id="custom-url" placeholder="Message #movie-night" autocomplete="off">
+                    <input type="text" id="custom-url" placeholder="Message #team-chat" autocomplete="off">
                     <button class="btn-push" id="push-btn" type="button" aria-label="Send">➤</button>
                 </div>
             </div>
@@ -261,6 +265,22 @@
             setTimeout(checkConnection, 500);
         } catch (e) {
             setStatus('Delete failed', 'bad');
+        }
+    });
+
+    // Copilot mode (Settings in the sidebar). ON = automatic ads play on
+    // time; OFF = only your pushes show an ad. Remembered in this browser.
+    const copilotToggle = $('copilot-toggle');
+    try { if (localStorage.getItem('vpr_copilot') === 'off') copilotToggle.checked = false; } catch {}
+    copilotToggle.addEventListener('change', async () => {
+        const enabled = copilotToggle.checked;
+        try { localStorage.setItem('vpr_copilot', enabled ? 'on' : 'off'); } catch {}
+        try {
+            await sendCommand({ type: 'set-copilot', enabled });
+            setStatus(enabled ? 'Copilot on' : 'Copilot off', 'ok');
+        } catch (e) {
+            setStatus('Copilot change failed', 'bad');
+            copilotToggle.checked = !enabled;
         }
     });
 

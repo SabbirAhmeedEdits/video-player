@@ -515,6 +515,17 @@
     // Default delay after you tap Push on the remote before the ad slides in.
     // The remote can override it per push with command.delayMs (seconds typed in the chat field).
     const REMOTE_PUSH_DELAY_MS = 3000;
+    // Copilot mode: ON = automatic ads play on their schedule (pre-roll,
+    // mid-rolls at 30/90/180, floating at 15/60/120). OFF = no automatic ads
+    // at all; only remote pushes show an ad. Default ON. The remote can
+    // switch it with a set-copilot command; ?copilot=off starts it OFF.
+    let copilotMode = true;
+    try {
+        if (localStorage.getItem('vpr_copilot') === 'off') copilotMode = false;
+        const p = new URLSearchParams(location.search);
+        if (p.get('copilot') === 'off' || p.get('copilot') === '0') copilotMode = false;
+        if (p.get('copilot') === 'on' || p.get('copilot') === '1') copilotMode = true;
+    } catch {}
 
     // ==========================================
     // 🎬 MOVIE LIBRARY
@@ -582,7 +593,7 @@
         pendingFloatingAds = [...FLOATING_AD_TIMESTAMPS].sort((a, b) => a - b);
         currentAdIndex = 0; currentFloatingAdIndex = 0;
         document.getElementById('mixed-content-alert').style.display = 'none';
-        startAd(true);
+        if (copilotMode) startAd(true); else returnToMovie();
     }
 
     function startAd(isPreRoll = false) {
@@ -669,8 +680,15 @@
         if (!mainMovieSrc) return;
         const currentTime = Math.floor(player.currentTime());
         if (!isPlayingAd) {
-            if (pendingAds.length > 0 && currentTime >= pendingAds[0]) { pendingAds.shift(); startAd(false); }
-            if (pendingFloatingAds.length > 0 && currentTime >= pendingFloatingAds[0]) { pendingFloatingAds.shift(); showFloatingAd(); }
+            if (copilotMode) {
+                if (pendingAds.length > 0 && currentTime >= pendingAds[0]) { pendingAds.shift(); startAd(false); }
+                if (pendingFloatingAds.length > 0 && currentTime >= pendingFloatingAds[0]) { pendingFloatingAds.shift(); showFloatingAd(); }
+            } else {
+                // Copilot off: drop automatic ads whose time has passed, so
+                // turning it back on later does not dump old ads at once.
+                while (pendingAds.length > 0 && currentTime >= pendingAds[0]) pendingAds.shift();
+                while (pendingFloatingAds.length > 0 && currentTime >= pendingFloatingAds[0]) pendingFloatingAds.shift();
+            }
         } else if (adBanner.style.display === 'block') {
             const timeLeft = Math.ceil(player.duration() - player.currentTime());
             adBanner.innerHTML = `⚠️ QUARANTINE INTERRUPT &bull; RESUMING IN ${timeLeft > 0 ? timeLeft : 0}s`;
@@ -716,6 +734,11 @@
         if (command.type === 'hide-floating-ad') {
             if (pendingRemoteAdTimer) { clearTimeout(pendingRemoteAdTimer); pendingRemoteAdTimer = null; }
             closeFloatingAdSmoothly(); return;
+        }
+        if (command.type === 'set-copilot') {
+            copilotMode = command.enabled !== false;
+            try { localStorage.setItem('vpr_copilot', copilotMode ? 'on' : 'off'); } catch {}
+            return;
         }
         if (command.type !== 'show-floating-ad') return;
         let url = '';
