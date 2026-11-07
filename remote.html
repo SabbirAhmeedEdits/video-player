@@ -38,14 +38,19 @@
         .msg .name { font-weight: 700; font-size: 14px; }
         .msg .time { font-size: 12px; color: #616061; font-weight: 400; margin-left: 6px; }
         .msg .text { font-size: 14px; line-height: 1.45; margin-top: 1px; }
-        /* Ad options as Slack messages */
+        /* Copilot toggle in the channel header — always in reach, even on mobile */
+        .copilot-top { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #616061; cursor: pointer; white-space: nowrap; margin-left: auto; }
+        .copilot-top input { width: 18px; height: 18px; accent-color: #2bac76; margin: 0; }
+        /* Ad options as Slack messages, like the chats above */
         .ad-option { display: flex; gap: 10px; padding: 8px 6px; border-radius: 6px; cursor: pointer; }
         .ad-option:hover { background: #f8f8f8; }
         .ad-option.selected { background: #e8f5fa; }
         .ad-option input { display: none; }
-        .ad-option .avatar { width: 36px; height: 36px; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #616061; background: #f0f0f0; }
-        .ad-option b { font-size: 14px; font-weight: 700; }
-        .ad-option span span { font-size: 13px; color: #616061; display: block; }
+        .ad-option .avatar { width: 36px; height: 36px; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; }
+        .ad-option .body { min-width: 0; }
+        .ad-option .name { font-size: 14px; font-weight: 700; }
+        .ad-option .time { font-size: 12px; color: #616061; font-weight: 400; margin-left: 6px; }
+        .ad-option .text { font-size: 14px; line-height: 1.45; margin-top: 1px; display: block; }
         /* Composer */
         .composer-wrap { padding: 8px 18px 14px; }
         .composer { border: 1px solid #868686; border-radius: 8px; }
@@ -66,8 +71,6 @@
         details label { display: block; font-size: 12px; color: rgba(255,255,255,0.75); margin: 10px 0 4px; }
         details input[type="text"], details input[type="password"] { background: #4a154b; color: #fff; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 9px 10px; font-size: 13px; }
         details input::placeholder { color: rgba(255,255,255,0.5); }
-        details .copilot-row { display: flex; gap: 8px; align-items: center; font-size: 13px; color: #fff; margin: 14px 0 0; cursor: pointer; }
-        details .copilot-row input { width: auto; accent-color: #2bac76; }
         details .btn-save { width: 100%; padding: 10px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; background: #fff; color: #3f0e40; margin-top: 12px; cursor: pointer; }
         .note { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; margin: 10px 0 0; }
         /* Mobile — Sabbir controls this from his phone 99% of the time.
@@ -81,8 +84,9 @@
             .sidebar .search, .sidebar .side-section { display: none; }
             .workspace { padding: 10px 16px; border-bottom: none; }
             .workspace b { font-size: 15px; }
-            .channel-header { position: sticky; top: 0; background: #fff; z-index: 5; padding: 10px 14px; }
+            .channel-header { position: sticky; top: 0; background: #fff; z-index: 5; padding: 10px 14px; flex-wrap: wrap; }
             .channel-header .topic { display: none; }
+            .copilot-top { font-size: 12px; }
             .messages { padding: 10px 14px 4px; }
             .msg { padding: 4px 0; }
             .ad-option { padding: 12px 8px; }
@@ -95,7 +99,6 @@
             details { margin-top: 0; border-top: none; }
             details summary { padding: 14px 0 6px; }
             details input[type="text"], details input[type="password"] { padding: 12px 10px; font-size: 16px; }
-            details .copilot-row { font-size: 14px; padding: 6px 0; }
             details .btn-save { padding: 13px; }
         }
     </style>
@@ -128,8 +131,6 @@
             <input type="text" id="room" value="main" autocomplete="off">
             <label for="pin">PIN (leave empty if none is set)</label>
             <input type="password" id="pin" placeholder="PIN" autocomplete="off">
-            <label class="copilot-row"><input type="checkbox" id="copilot-toggle" checked> Copilot mode</label>
-            <p class="note">Copilot on: ads play automatically on time. Off: only your pushes show an ad.</p>
             <button class="btn-save" id="connect-btn" type="button">Save</button>
             <p class="note">If the server is empty, this only works in another tab of this same browser.</p>
         </details>
@@ -139,6 +140,7 @@
         <div class="channel-header">
             <h1># team-chat</h1>
             <span class="topic">Team updates</span>
+            <label class="copilot-top" title="Copilot on: ads play automatically on time. Off: only your pushes show an ad."><input type="checkbox" id="copilot-toggle" checked> Copilot</label>
             <span class="presence">● <span id="status" class="status">connecting…</span></span>
         </div>
 
@@ -150,13 +152,13 @@
             <div class="msg"><div class="avatar" style="background:#1264a3;">Y</div><div class="body"><span class="name">you</span><span class="time">9:43 PM</span><div class="text">Will do.</div></div></div>
 
             <div class="day-divider">Pinned</div>
-            <label class="ad-option selected"><input type="radio" name="ad" value="0" checked><span><b>1</b></span></label>
-            <label class="ad-option"><input type="radio" name="ad" value="1"><span><b>2</b></span></label>
-            <label class="ad-option"><input type="radio" name="ad" value="2"><span><b>3</b></span></label>
-            <label class="ad-option"><input type="radio" name="ad" value="3"><span><b>4</b></span></label>
-            <label class="ad-option"><input type="radio" name="ad" value="4"><span><b>5</b></span></label>
-            <label class="ad-option"><input type="radio" name="ad" value="5"><span><b>6</b></span></label>
-            <label class="ad-option"><input type="radio" name="ad" value="custom"><span><b>Custom</b></span></label>
+            <label class="ad-option selected"><input type="radio" name="ad" value="0" checked><span class="avatar" style="background:#611f69;">1</span><span class="body"><span class="name">1</span><span class="time">9:41 PM</span><span class="text">Ready to send.</span></span></label>
+            <label class="ad-option"><input type="radio" name="ad" value="1"><span class="avatar" style="background:#1264a3;">2</span><span class="body"><span class="name">2</span><span class="time">9:42 PM</span><span class="text">Ready to send.</span></span></label>
+            <label class="ad-option"><input type="radio" name="ad" value="2"><span class="avatar" style="background:#e01e5a;">3</span><span class="body"><span class="name">3</span><span class="time">9:42 PM</span><span class="text">Ready to send.</span></span></label>
+            <label class="ad-option"><input type="radio" name="ad" value="3"><span class="avatar" style="background:#2bac76;">4</span><span class="body"><span class="name">4</span><span class="time">9:43 PM</span><span class="text">Ready to send.</span></span></label>
+            <label class="ad-option"><input type="radio" name="ad" value="4"><span class="avatar" style="background:#ecb22e;">5</span><span class="body"><span class="name">5</span><span class="time">9:44 PM</span><span class="text">Ready to send.</span></span></label>
+            <label class="ad-option"><input type="radio" name="ad" value="5"><span class="avatar" style="background:#36c5f0;">6</span><span class="body"><span class="name">6</span><span class="time">9:44 PM</span><span class="text">Ready to send.</span></span></label>
+            <label class="ad-option"><input type="radio" name="ad" value="custom"><span class="avatar" style="background:#616061;">C</span><span class="body"><span class="name">Custom</span><span class="time">9:45 PM</span><span class="text">Type a link in the message box.</span></span></label>
         </div>
 
         <div class="composer-wrap">
@@ -169,7 +171,7 @@
                 </div>
             </div>
             <button class="btn-hide" id="hide-btn" type="button">↩&nbsp; Delete message</button>
-            <p class="hint">Tip: type a number here to set the delay in seconds. Leave it empty for 3 seconds.</p>
+            <p class="hint">Tip: tap a message above to play that ad. Type a number here first to set the delay in seconds — empty is 3 seconds.</p>
         </div>
     </main>
 </div>
@@ -193,10 +195,15 @@
         statusEl.className = 'status' + (kind ? ' ' + kind : '');
     }
 
+    // Tapping a message plays that ad right away (1 plays ad 1, 2 plays ad 2,
+    // and so on). Custom only selects it — type the link, then tap send.
     document.querySelectorAll('.ad-option').forEach((el) => {
         el.addEventListener('click', () => {
             document.querySelectorAll('.ad-option').forEach((o) => o.classList.remove('selected'));
             el.classList.add('selected');
+            const input = el.querySelector('input[name="ad"]');
+            input.checked = true;
+            if (input.value !== 'custom') doPush();
         });
     });
 
@@ -263,8 +270,9 @@
         return sec * 1000;
     }
 
-    $('push-btn').addEventListener('click', async () => {
+    async function doPush() {
         const btn = $('push-btn');
+        if (btn.disabled) return;
         btn.disabled = true;
         try {
             const ad = selectedAd();
@@ -280,7 +288,9 @@
         } catch (e) {
             setStatus('Message failed to send', 'bad');
         } finally { btn.disabled = false; }
-    });
+    }
+
+    $('push-btn').addEventListener('click', doPush);
 
     $('hide-btn').addEventListener('click', async () => {
         try {
@@ -292,8 +302,8 @@
         }
     });
 
-    // Copilot mode (Settings in the sidebar). ON = automatic ads play on
-    // time; OFF = only your pushes show an ad. Remembered in this browser.
+    // Copilot mode (toggle in the channel header). ON = automatic ads play
+    // on time; OFF = only your pushes show an ad. Remembered in this browser.
     const copilotToggle = $('copilot-toggle');
     try { if (localStorage.getItem('vpr_copilot') === 'off') copilotToggle.checked = false; } catch {}
     copilotToggle.addEventListener('change', async () => {
