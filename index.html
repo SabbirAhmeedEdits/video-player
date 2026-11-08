@@ -178,14 +178,17 @@
         .mixed-content-banner .btn-close-alert { margin-top: 12px; background: #ff002b; color: #fff; border: none; padding: 7px 18px; border-radius: 4px; cursor: pointer; }
 
         .vjs-floating-ad {
-            display: none; position: absolute; width: 240px; background: #0a0305;
+            display: none; position: absolute; width: clamp(110px, 26%, 240px); background: #0a0305;
             border: 1.5px solid #ff002b; box-shadow: 0 0 30px rgba(255,0,43,0.6);
             z-index: 20; border-radius: 6px; overflow: hidden;
         }
+        /* Responsive: the ad is 26% of the player width (max 240px, min 110px),
+           so it looks the same size relative to the movie on a monitor and on
+           a phone. The old fixed 160px on phones covered almost half the screen. */
         @media screen and (max-width: 600px) {
-            .vjs-floating-ad { width: 160px; }
             .video-js { height: 320px; }
             .input-group { flex-direction: column; }
+            .vjs-floating-close { padding: 4px 10px; font-size: 13px; }
         }
         .vjs-floating-ad video { width: 100%; display: block; pointer-events: none; }
         .vjs-floating-ad img { width: 100%; display: block; pointer-events: none; }
