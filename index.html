@@ -491,6 +491,7 @@
     ];
 
     const FLOATING_ADS_LIBRARY = [
+        'https://gifdb.com/images/branded/high/johnny-sins-eating-banana-2qsr3myc7elw7rvk.gif',
         'https://i.redd.it/sv4cbldtitge1.gif',
         'https://ht-cdn.trafficjunky.net/c6321/video/003/022/121/3022121_video.mp4',
         'https://ht-cdn.trafficjunky.net/c6321/video/003/070/961/3070961_video.mp4',
@@ -501,6 +502,15 @@
 
     const AD_BREAK_TIMESTAMPS  = [30, 90, 180];
     const FLOATING_AD_TIMESTAMPS = [15, 60, 120];
+    // Copilot ON — intense-moment rules. Horror tension builds through the
+    // movie, so automatic ads cluster in the tense middle and the climax
+    // (fractions of the movie's runtime), not in the slow opening. The
+    // player cannot listen to the movie's sound to catch jumpscares —
+    // Dropbox does not send CORS headers, so audio analysis is blocked —
+    // so it uses the movie's tension arc instead. These fixed times are
+    // only the fallback when the movie's duration is unknown.
+    const INTENSE_FLOATING_FRACTIONS = [0.25, 0.45, 0.65, 0.80];
+    const INTENSE_AD_FRACTIONS = [0.40, 0.70];
     const SKIP_TIMER_SECONDS = 10;
 
     // ==========================================
@@ -571,6 +581,7 @@
 
     let mainMovieSrc = '', pendingAds = [], pendingFloatingAds = [], isPlayingAd = false;
     let resumeTime = 0, currentAdIndex = 0, currentFloatingAdIndex = 0, floatingAdPlayCount = 0;
+    let intenseScheduleSet = false;
     let currentPosAnim = 'right';
     let floatingAdTimer = null;
     let lastRemoteCommandId = '';
@@ -586,9 +597,24 @@
         return clean;
     }
 
+    // Copilot ON: once the movie's length is known, move the automatic ads
+    // onto the intense moments (fractions of the runtime). Only future
+    // moments are kept, so turning Copilot back on mid-movie does not dump
+    // ads whose moment already passed.
+    function applyIntenseSchedule() {
+        if (intenseScheduleSet || !copilotMode) return;
+        const dur = player.duration();
+        if (!dur || !isFinite(dur) || dur <= 0) return;
+        const now = player.currentTime();
+        pendingFloatingAds = INTENSE_FLOATING_FRACTIONS.map(f => Math.floor(dur * f)).filter(t => t > now).sort((a, b) => a - b);
+        pendingAds = INTENSE_AD_FRACTIONS.map(f => Math.floor(dur * f)).filter(t => t > now).sort((a, b) => a - b);
+        intenseScheduleSet = true;
+    }
+
     function setupNewMovie(source) {
         if (!source) return;
         mainMovieSrc = formatUrl(source);
+        intenseScheduleSet = false;
         pendingAds = [...AD_BREAK_TIMESTAMPS].sort((a, b) => a - b);
         pendingFloatingAds = [...FLOATING_AD_TIMESTAMPS].sort((a, b) => a - b);
         currentAdIndex = 0; currentFloatingAdIndex = 0;
@@ -622,7 +648,7 @@
         if (lower.includes('.mkv')) mime = 'video/x-matroska';
         else if (lower.includes('.webm')) mime = 'video/webm';
         player.src({ type: mime, src: mainMovieSrc });
-        player.one('loadedmetadata', () => { player.currentTime(resumeTime); player.play().catch(e => console.warn(e)); });
+        player.one('loadedmetadata', () => { player.currentTime(resumeTime); applyIntenseSchedule(); player.play().catch(e => console.warn(e)); });
     }
 
     player.on('error', function() {
@@ -738,6 +764,7 @@
         if (command.type === 'set-copilot') {
             copilotMode = command.enabled !== false;
             try { localStorage.setItem('vpr_copilot', copilotMode ? 'on' : 'off'); } catch {}
+            if (copilotMode && mainMovieSrc) { intenseScheduleSet = false; applyIntenseSchedule(); }
             return;
         }
         if (command.type !== 'show-floating-ad') return;
