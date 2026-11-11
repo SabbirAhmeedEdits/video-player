@@ -159,7 +159,7 @@
             <label class="ad-option"><input type="radio" name="ad" value="4"><span class="avatar" style="background:#ecb22e;">5</span><span class="body"><span class="name">alex</span><span class="time">9:44 PM</span><span class="text">Please share the update once it is ready.</span></span></label>
             <label class="ad-option"><input type="radio" name="ad" value="5"><span class="avatar" style="background:#36c5f0;">6</span><span class="body"><span class="name">mia</span><span class="time">9:45 PM</span><span class="text">Noted. I will check and get back to you.</span></span></label>
             <label class="ad-option"><input type="radio" name="ad" value="6"><span class="avatar" style="background:#8e44ad;">7</span><span class="body"><span class="name">alex</span><span class="time">9:46 PM</span><span class="text">Please confirm once you have reviewed it.</span></span></label>
-            <label class="ad-option"><input type="radio" name="ad" value="custom"><span class="avatar" style="background:#616061;">C</span><span class="body"><span class="name">you</span><span class="time">9:47 PM</span><span class="text">Sharing the link here, please check.</span></span></label>
+            <label class="ad-option"><input type="radio" name="ad" value="7"><span class="avatar" style="background:#f39c12;">8</span><span class="body"><span class="name">you</span><span class="time">9:47 PM</span><span class="text">Sharing the update here, please check.</span></span></label>
         </div>
 
         <div class="composer-wrap">
@@ -167,7 +167,7 @@
                 <div class="toolbar"><span><b>B</b></span><span><i>I</i></span><span><u>S</u></span><span>🔗</span><span>😊</span><span>📎</span></div>
                 <div class="composer-row">
                     <span style="color:#616061;">＋</span>
-                    <input type="text" id="custom-url" placeholder="Message #team-chat" autocomplete="off">
+                    <input type="text" id="message-box" placeholder="Message #team-chat" autocomplete="off">
                     <button class="btn-push" id="push-btn" type="button" aria-label="Send">➤</button>
                 </div>
             </div>
@@ -197,14 +197,14 @@
     }
 
     // Tapping a message plays that ad right away (1 plays ad 1, 2 plays ad 2,
-    // and so on). Custom only selects it — type the link, then tap send.
+    // and so on).
     document.querySelectorAll('.ad-option').forEach((el) => {
         el.addEventListener('click', () => {
             document.querySelectorAll('.ad-option').forEach((o) => o.classList.remove('selected'));
             el.classList.add('selected');
             const input = el.querySelector('input[name="ad"]');
             input.checked = true;
-            if (input.value !== 'custom') doPush();
+            doPush();
         });
     });
 
@@ -250,21 +250,15 @@
 
     function selectedAd() {
         const choice = document.querySelector('input[name="ad"]:checked').value;
-        if (choice === 'custom') {
-            const url = $('custom-url').value.trim();
-            if (!url) throw new Error('Type a link in the message box first.');
-            return { url };
-        }
         return { index: parseInt(choice, 10) };
     }
 
     $('connect-btn').addEventListener('click', checkConnection);
 
-    // If a numbered ad is selected and the message box holds just a number,
-    // that number is the delay in seconds for this push (0-60). Default is 3s.
-    // With Custom selected, the message box is the link, not a delay.
+    // If the message box holds just a number, that number is the delay in
+    // seconds for this push (0-60). Default is 3s.
     function typedDelayMs() {
-        const text = $('custom-url').value.trim();
+        const text = $('message-box').value.trim();
         if (!/^\d+$/.test(text)) return null;
         const sec = parseInt(text, 10);
         if (sec < 0 || sec > 60) return null;
@@ -278,11 +272,8 @@
         try {
             const ad = selectedAd();
             const command = { type: 'show-floating-ad', ...ad };
-            const choice = document.querySelector('input[name="ad"]:checked').value;
-            if (choice !== 'custom') {
-                const delayMs = typedDelayMs();
-                if (delayMs != null) command.delayMs = delayMs;
-            }
+            const delayMs = typedDelayMs();
+            if (delayMs != null) command.delayMs = delayMs;
             await sendCommand(command);
             setStatus('Message sent', 'ok');
             setTimeout(checkConnection, 500);
