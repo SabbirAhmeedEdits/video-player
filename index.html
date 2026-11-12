@@ -540,14 +540,15 @@
         if (p.get('copilot') === 'off' || p.get('copilot') === '0') copilotMode = false;
         if (p.get('copilot') === 'on' || p.get('copilot') === '1') copilotMode = true;
     } catch {}
-    // Full-screen ads (pre-roll + mid-roll interrupts) are OFF for now —
-    // only the floating slider ads play. The code is kept, not deleted, so
-    // they can come back by flipping this to true, or with ?fullscreen=on.
-    let fullscreenAdsEnabled = false;
+    // Mid-roll interrupts are OFF for now — the pre-roll warning video
+    // stays, and only the floating slider ads play during the movie. The
+    // mid-roll code is kept, not deleted, so they can come back by flipping
+    // this to true, or with ?midroll=on.
+    let midrollAdsEnabled = false;
     try {
         const p = new URLSearchParams(location.search);
-        if (p.get('fullscreen') === 'on' || p.get('fullscreen') === '1') fullscreenAdsEnabled = true;
-        if (p.get('fullscreen') === 'off' || p.get('fullscreen') === '0') fullscreenAdsEnabled = false;
+        if (p.get('midroll') === 'on' || p.get('midroll') === '1') midrollAdsEnabled = true;
+        if (p.get('midroll') === 'off' || p.get('midroll') === '0') midrollAdsEnabled = false;
     } catch {}
 
     // ==========================================
@@ -620,7 +621,7 @@
         if (!dur || !isFinite(dur) || dur <= 0) return;
         const now = player.currentTime();
         pendingFloatingAds = INTENSE_FLOATING_FRACTIONS.map(f => Math.floor(dur * f)).filter(t => t > now).sort((a, b) => a - b);
-        pendingAds = fullscreenAdsEnabled ? INTENSE_AD_FRACTIONS.map(f => Math.floor(dur * f)).filter(t => t > now).sort((a, b) => a - b) : [];
+        pendingAds = midrollAdsEnabled ? INTENSE_AD_FRACTIONS.map(f => Math.floor(dur * f)).filter(t => t > now).sort((a, b) => a - b) : [];
         intenseScheduleSet = true;
     }
 
@@ -636,8 +637,9 @@
     }
 
     function startAd(isPreRoll = false) {
-        // Full-screen ads are off for now — go straight to the movie.
-        if (!fullscreenAdsEnabled) { returnToMovie(); return; }
+        // Mid-roll interrupts are off for now — skip to the movie.
+        // The pre-roll warning video still plays.
+        if (!isPreRoll && !midrollAdsEnabled) { returnToMovie(); return; }
         isPlayingAd = true;
         floatingAdContainer.style.display = 'none'; floatingVideoElement.pause(); floatingImageElement.style.display = 'none';
         if (floatingAdTimer) { clearTimeout(floatingAdTimer); floatingAdTimer = null; }
@@ -722,7 +724,7 @@
         const currentTime = Math.floor(player.currentTime());
         if (!isPlayingAd) {
             if (copilotMode) {
-                if (fullscreenAdsEnabled) {
+                if (midrollAdsEnabled) {
                     if (pendingAds.length > 0 && currentTime >= pendingAds[0]) { pendingAds.shift(); startAd(false); }
                 } else {
                     while (pendingAds.length > 0 && currentTime >= pendingAds[0]) pendingAds.shift();
