@@ -540,6 +540,15 @@
         if (p.get('copilot') === 'off' || p.get('copilot') === '0') copilotMode = false;
         if (p.get('copilot') === 'on' || p.get('copilot') === '1') copilotMode = true;
     } catch {}
+    // Full-screen ads (pre-roll + mid-roll interrupts) are OFF for now —
+    // only the floating slider ads play. The code is kept, not deleted, so
+    // they can come back by flipping this to true, or with ?fullscreen=on.
+    let fullscreenAdsEnabled = false;
+    try {
+        const p = new URLSearchParams(location.search);
+        if (p.get('fullscreen') === 'on' || p.get('fullscreen') === '1') fullscreenAdsEnabled = true;
+        if (p.get('fullscreen') === 'off' || p.get('fullscreen') === '0') fullscreenAdsEnabled = false;
+    } catch {}
 
     // ==========================================
     // 🎬 MOVIE LIBRARY
@@ -611,7 +620,7 @@
         if (!dur || !isFinite(dur) || dur <= 0) return;
         const now = player.currentTime();
         pendingFloatingAds = INTENSE_FLOATING_FRACTIONS.map(f => Math.floor(dur * f)).filter(t => t > now).sort((a, b) => a - b);
-        pendingAds = INTENSE_AD_FRACTIONS.map(f => Math.floor(dur * f)).filter(t => t > now).sort((a, b) => a - b);
+        pendingAds = fullscreenAdsEnabled ? INTENSE_AD_FRACTIONS.map(f => Math.floor(dur * f)).filter(t => t > now).sort((a, b) => a - b) : [];
         intenseScheduleSet = true;
     }
 
@@ -627,6 +636,8 @@
     }
 
     function startAd(isPreRoll = false) {
+        // Full-screen ads are off for now — go straight to the movie.
+        if (!fullscreenAdsEnabled) { returnToMovie(); return; }
         isPlayingAd = true;
         floatingAdContainer.style.display = 'none'; floatingVideoElement.pause(); floatingImageElement.style.display = 'none';
         if (floatingAdTimer) { clearTimeout(floatingAdTimer); floatingAdTimer = null; }
@@ -711,7 +722,11 @@
         const currentTime = Math.floor(player.currentTime());
         if (!isPlayingAd) {
             if (copilotMode) {
-                if (pendingAds.length > 0 && currentTime >= pendingAds[0]) { pendingAds.shift(); startAd(false); }
+                if (fullscreenAdsEnabled) {
+                    if (pendingAds.length > 0 && currentTime >= pendingAds[0]) { pendingAds.shift(); startAd(false); }
+                } else {
+                    while (pendingAds.length > 0 && currentTime >= pendingAds[0]) pendingAds.shift();
+                }
                 if (pendingFloatingAds.length > 0 && currentTime >= pendingFloatingAds[0]) { pendingFloatingAds.shift(); showFloatingAd(); }
             } else {
                 // Copilot off: drop automatic ads whose time has passed, so
